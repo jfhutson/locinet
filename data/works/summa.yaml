@@ -1,0 +1,141 @@
+id: summa
+title: Summa Theologiae
+author: Thomas Aquinas
+language: la
+
+parts:
+  - id: prima_pars
+    title:
+      la: Prima Pars
+      en: First Part
+
+    sections:
+      - id: st1_q1
+        section_number: 1
+        title:
+          la: De sacra doctrina
+          en: Sacred Doctrine
+        links:
+          - site: CCEL
+            language: en
+            url: https://www.ccel.org/ccel/aquinas/summa/summa.I.Q1.html
+
+      - id: st1_q2
+        section_number: 2
+        title:
+          la: De existentia Dei
+          en: On the Existence of God
+        links:
+          - site: CCEL
+            language: en
+            url: https://www.ccel.org/ccel/aquinas/summa/summa.I.Q2.html
+
+      - id: st1_q3
+        section_number: 3
+        title:
+          la: De simplicitate Dei
+          en: On the Simplicity of God
+        links:
+          - site: CCEL
+            language: en
+            url: https://www.ccel.org/ccel/aquinas/summa/summa.I.Q3.html
+
+      - id: st1_q4
+        section_number: 4
+        title:
+          la: De perfectione Dei
+          en: On the Perfection of God
+        links:
+          - site: CCEL
+            language: en
+            url: https://www.ccel.org/ccel/aquinas/summa/summa.I.Q4.html
+
+      - id: st1_q5
+        section_number: 5
+        title:
+          la: De bonitate in communi
+          en: Of Goodness in General
+        links:
+          - site: CCEL
+            language: en
+            url: https://www.ccel.org/ccel/aquinas/summa/summa.I.Q5.html
+
+      - id: st1_q6
+        section_number: 6
+        title:
+          la: De bonitate Dei
+          en: On the Goodness of God
+        links:
+          - site: CCEL
+            language: en
+            url: https://www.ccel.org/ccel/aquinas/summa/summa.I.Q6.html
+
+      - id: st1_q7
+        section_number: 7
+        title:
+          la: De infinitate Dei
+          en: On the Infinity of God
+        links:
+          - site: CCEL
+            language: en
+            url: https://www.ccel.org/ccel/aquinas/summa/summa.I.Q7.html
+
+      - id: st1_q8
+        section_number: 8
+        title:
+          la: De existentia Dei in rebus
+          en: On the Existence of God in Things
+        links:
+          - site: CCEL
+            language: en
+            url: https://www.ccel.org/ccel/aquinas/summa/summa.I.Q8.html
+
+      - id: st1_q9
+        section_number: 9
+        title:
+          la: De immutabilitate Dei
+          en: On the Immutability of God
+        links:
+          - site: CCEL
+            language: en
+            url: https://www.ccel.org/ccel/aquinas/summa/summa.I.Q9.html
+
+      - id: st1_q10
+        section_number: 10
+        title:
+          la: De aeternitate Dei
+          en: On the Eternity of God
+        links:
+          - site: CCEL
+            language: en
+            url: https://www.ccel.org/ccel/aquinas/summa/summa.I.Q10.html
+
+      - id: st1_q11
+        section_number: 11
+        title:
+          la: De unitate Dei
+          en: On the Unity of God
+        links:
+          - site: CCEL
+            language: en
+            url: https://www.ccel.org/ccel/aquinas/summa/summa.I.Q11.html
+
+      - id: st1_q12
+        section_number: 12
+        title:
+          la: De cognitione Dei quoad nos
+          en: How God Is Known by Us
+        links:
+          - site: CCEL
+            language: en
+            url: https://www.ccel.org/ccel/aquinas/summa/summa.I.Q12.html
+
+      - id: st1_q13
+        section_number: 13
+        title:
+          la: De nominibus Dei
+          en: On the Names of God
+        links:
+          - site: CCEL
+            language: en
+            url: https://www.ccel.org/ccel/aquinas/summa/summa.I.Q13.html
