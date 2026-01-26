@@ -1,3 +1,21 @@
+{% comment %}Debug: Show what's in site.data{% endcomment %}
+<pre>
+Looking for work_id: {{ page.work_id }}
+
+Data files found:
+{% for pair in site.data %}
+  File: {{ pair[0] }}
+  {% if pair[1].works %}
+    Works in this file:
+    {% for w in pair[1].works %}
+      - {{ w.id }}
+    {% endfor %}
+  {% else %}
+    (No 'works' key found)
+  {% endif %}
+{% endfor %}
+</pre>
+
 {% assign work = nil %}
 {% for pair in site.data %}
   {% if pair[1].works %}
