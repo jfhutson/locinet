@@ -1,0 +1,45 @@
+{% assign work = nil %}
+
+{% for pair in site.data %}
+  {% if pair[1].works %}
+    {% for w in pair[1].works %}
+      {% if w.id == page.work_id %}
+        {% assign work = w %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+
+{% if work == nil %}
+  <p>Work not found.</p>
+{% else %}
+
+<h1>{{ work.title }}</h1>
+<p>
+  <strong>{{ work.author }}</strong>
+  {% if work.year %} ({{ work.year }}){% endif %}
+</p>
+
+{% for book in work.books %}
+  <h2>{{ book.title.en }}</h2>
+
+  <ul>
+    {% for section in book.sections %}
+      <li>
+        §{{ section.section_number }} —
+        {{ section.title.en }}
+
+        {% for link in section.links %}
+          {% if link.site == "CCEL" %}
+            —
+            <a href="{{ link.url }}" target="_blank">
+              CCEL
+            </a>
+          {% endif %}
+        {% endfor %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endfor %}
+
+{% endif %}
