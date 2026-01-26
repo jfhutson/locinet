@@ -1,3 +1,7 @@
 title: Theological Syntopticon
 url: "https://jfhutson.github.io"
 baseurl: "/Theological-Syntopticon"
+collections:
+  works:
+    output: true
+    permalink: /works/:name/
