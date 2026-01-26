@@ -5,8 +5,8 @@ title: Home
 <p>The theological syntopticon is a database of sections of theological works discussing the various topics of theology. The syntopticon allows one to find sections in the writings of many theologians on a given topic.</p>
 
 <ul>
-  {% for book in site.data.books %}
-    <li>{{ book.title }} by {{ book.author }}</li>
+  {% for work in site.data.works %}
+    <li>{{ work.title }} by {{ work.author }}</li>
   {% endfor %}
 </ul>
 
