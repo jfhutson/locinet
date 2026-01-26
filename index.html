@@ -7,12 +7,18 @@ title: Home
 <p>Data files: {{ site.data | jsonify }}</p>
 
 <ul>
+  {% assign total_works = 0 %}
   {% for file_name in site.data %}
     {% assign data_file = site.data[file_name] %}
     {% if data_file.works %}
       {% for work in data_file.works %}
         <li>{{ work.title }} by {{ work.author }}</li>
+        {% assign total_works = total_works | plus: 1 %}
       {% endfor %}
     {% endif %}
   {% endfor %}
+
+  {% if total_works == 0 %}
+    <li>No works found.</li>
+  {% endif %}
 </ul>
