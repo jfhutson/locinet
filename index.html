@@ -7,9 +7,12 @@ title: Home
 
 <ul>
 {% for work in site.data.works %}
-  <li><a href="{{ '/works/' | append: work.id | relative_url }}">{{ work.title }}</a> by {{ work.author }}</li>
+  <li>
+    <a href="{{ '/works/' | append: work.id | relative_url }}">{{ work.title }}</a> by {{ work.author }}
+  </li>
 {% endfor %}
 </ul>
+
 <pre>
 {{ site.data | jsonify }}
 </pre>
