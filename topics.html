@@ -1,10 +1,12 @@
 ---
 layout: default
 title: Topics Index
+permalink: /topics/
 ---
+
 <h1>Topics</h1>
 
-{% comment %}Build a flat topic lookup for easy searching{% endcomment %}
+{% comment %}Build a flat topic lookup (optional, if you need it later){% endcomment %}
 {% assign topic_lookup = "" | split: "" %}
 {% for topic in site.data.topics_definitions.topics %}
   {% assign topic_lookup = topic_lookup | push: topic %}
@@ -25,221 +27,23 @@ title: Topics Index
   {% endif %}
 {% endfor %}
 
-{% comment %}Display topics hierarchically{% endcomment %}
+{% comment %}Combine all assignments from all _data files{% endcomment %}
+{% assign all_assignments = "" | split: "" %}
+{% for pair in site.data %}
+  {% assign data_value = pair[1] %}
+  {% if data_value.assignments %}
+    {% assign all_assignments = all_assignments | concat: data_value.assignments %}
+  {% endif %}
+{% endfor %}
+
+{% comment %}Display topics recursively{% endcomment %}
+{% assign heading_levels = "h2,h3,h4,h5" | split: "," %}
+
 {% for topic in site.data.topics_definitions.topics %}
   <h2 id="{{ topic.id }}">{{ topic.name }}</h2>
   {% if topic.description %}
     <p>{{ topic.description }}</p>
   {% endif %}
   
-  {% if topic.children %}
-    {% for subtopic in topic.children %}
-      <h3 id="{{ subtopic.id }}" style="margin-left: 20px;">{{ subtopic.name }}</h3>
-      {% if subtopic.description %}
-        <p style="margin-left: 20px;"><em>{{ subtopic.description }}</em></p>
-      {% endif %}
-      
-      {% comment %}Check if this subtopic has any sections assigned to it{% endcomment %}
-      {% assign has_sections = false %}
-      {% comment %}Combine all topic assignments from multiple files{% endcomment %}
-        {% assign all_assignments = "" | split: "" %}
-        {% if site.data.topics.assignments %}
-          {% assign all_assignments = all_assignments | concat: site.data.topics.assignments %}
-        {% endif %}
-        {% if site.data.institutes_topics.assignments %}
-          {% assign all_assignments = all_assignments | concat: site.data.institutes_topics.assignments %}
-        {% endif %}
-        {% if site.data.summa_first_part_topics.assignments %}
-          {% assign all_assignments = all_assignments | concat: site.data.summa_first_part_topics.assignments %}
-        {% endif %}
-        
-        {% for assignment in all_assignments %}
-        {% if assignment.topics contains subtopic.id %}
-          {% assign has_sections = true %}
-          {% break %}
-        {% endif %}
-      {% endfor %}
-      
-      {% if has_sections %}
-        <ul style="margin-left: 20px;">
-          {% comment %}Combine all topic assignments from multiple files{% endcomment %}
-            {% assign all_assignments = "" | split: "" %}
-            {% if site.data.topics.assignments %}
-              {% assign all_assignments = all_assignments | concat: site.data.topics.assignments %}
-            {% endif %}
-            {% if site.data.institutes_topics.assignments %}
-              {% assign all_assignments = all_assignments | concat: site.data.institutes_topics.assignments %}
-            {% endif %}
-            {% if site.data.summa_first_part_topics.assignments %}
-              {% assign all_assignments = all_assignments | concat: site.data.summa_first_part_topics.assignments %}
-            {% endif %}
-            
-            {% for assignment in all_assignments %}
-            {% if assignment.topics contains subtopic.id %}
-              {% comment %}Find the work and section details{% endcomment %}
-              {% for pair in site.data %}
-                {% if pair[1].works %}
-                  {% for work in pair[1].works %}
-                    {% for structure_item in work.structure %}
-                      {% for child in structure_item.children %}
-                        {% if child.id == assignment.section_id %}
-                          <li>
-                            <a href="{{ '/works/' | append: work.id | append: '/' | relative_url }}">
-                              <em>{{ work.title }}</em>
-                            </a>
-                            {% comment %}optional: show section number/type after work link{% endcomment %}
-                            — {{ child.type | capitalize }} {{ child.number }}
-                          </li>
-                        {% endif %}
-                      {% endfor %}
-                    {% endfor %}
-                  {% endfor %}
-                {% endif %}
-              {% endfor %}
-            {% endif %}
-          {% endfor %}
-        </ul>
-      {% endif %}
-      
-      {% comment %}Handle third-level topics{% endcomment %}
-      {% if subtopic.children %}
-        {% for subsubtopic in subtopic.children %}
-          <h4 id="{{ subsubtopic.id }}" style="margin-left: 40px;">{{ subsubtopic.name }}</h4>
-          {% if subsubtopic.description %}
-            <p style="margin-left: 40px;"><em>{{ subsubtopic.description }}</em></p>
-          {% endif %}
-          
-          {% assign has_sections = false %}
-          {% comment %}Combine all topic assignments from multiple files{% endcomment %}
-            {% assign all_assignments = "" | split: "" %}
-            {% if site.data.topics.assignments %}
-              {% assign all_assignments = all_assignments | concat: site.data.topics.assignments %}
-            {% endif %}
-            {% if site.data.institutes_topics.assignments %}
-              {% assign all_assignments = all_assignments | concat: site.data.institutes_topics.assignments %}
-            {% endif %}
-            {% if site.data.summa_first_part_topics.assignments %}
-              {% assign all_assignments = all_assignments | concat: site.data.summa_first_part_topics.assignments %}
-            {% endif %}
-            
-            {% for assignment in all_assignments %}
-            {% if assignment.topics contains subsubtopic.id %}
-              {% assign has_sections = true %}
-              {% break %}
-            {% endif %}
-          {% endfor %}
-          
-          {% if has_sections %}
-            <ul style="margin-left: 40px;">
-              {% comment %}Combine all topic assignments from multiple files{% endcomment %}
-                {% assign all_assignments = "" | split: "" %}
-                {% if site.data.topics.assignments %}
-                  {% assign all_assignments = all_assignments | concat: site.data.topics.assignments %}
-                {% endif %}
-                {% if site.data.institutes_topics.assignments %}
-                  {% assign all_assignments = all_assignments | concat: site.data.institutes_topics.assignments %}
-                {% endif %}
-                {% if site.data.summa_first_part_topics.assignments %}
-                  {% assign all_assignments = all_assignments | concat: site.data.summa_first_part_topics.assignments %}
-                {% endif %}
-                
-                {% for assignment in all_assignments %}
-                {% if assignment.topics contains subsubtopic.id %}
-                  {% for pair in site.data %}
-                    {% if pair[1].works %}
-                      {% for work in pair[1].works %}
-                        {% for structure_item in work.structure %}
-                          {% for child in structure_item.children %}
-                            {% if child.id == assignment.section_id %}
-                              <li>
-                                <a href="{{ '/works/' | append: work.id | append: '/' | relative_url }}">
-                                  <em>{{ work.title }}</em>
-                                </a>
-                                {% comment %}optional: show section number/type after work link{% endcomment %}
-                                — {{ child.type | capitalize }} {{ child.number }}
-                              </li>
-                            {% endif %}
-                          {% endfor %}
-                        {% endfor %}
-                      {% endfor %}
-                    {% endif %}
-                  {% endfor %}
-                {% endif %}
-              {% endfor %}
-            </ul>
-          {% endif %}
-          
-          {% comment %}Handle fourth-level topics{% endcomment %}
-          {% if subsubtopic.children %}
-            {% for subsubsubtopic in subsubtopic.children %}
-              <h5 id="{{ subsubsubtopic.id }}" style="margin-left: 60px;">{{ subsubsubtopic.name }}</h5>
-              {% if subsubsubtopic.description %}
-                <p style="margin-left: 60px;"><em>{{ subsubsubtopic.description }}</em></p>
-              {% endif %}
-              
-              {% assign has_sections = false %}
-              {% comment %}Combine all topic assignments from multiple files{% endcomment %}
-                {% assign all_assignments = "" | split: "" %}
-                {% if site.data.topics.assignments %}
-                  {% assign all_assignments = all_assignments | concat: site.data.topics.assignments %}
-                {% endif %}
-                {% if site.data.institutes_topics.assignments %}
-                  {% assign all_assignments = all_assignments | concat: site.data.institutes_topics.assignments %}
-                {% endif %}
-                {% if site.data.summa_first_part_topics.assignments %}
-                  {% assign all_assignments = all_assignments | concat: site.data.summa_first_part_topics.assignments %}
-                {% endif %}
-                
-                {% for assignment in all_assignments %}
-                {% if assignment.topics contains subsubsubtopic.id %}
-                  {% assign has_sections = true %}
-                  {% break %}
-                {% endif %}
-              {% endfor %}
-              
-              {% if has_sections %}
-                <ul style="margin-left: 60px;">
-                  {% comment %}Combine all topic assignments from multiple files{% endcomment %}
-                    {% assign all_assignments = "" | split: "" %}
-                    {% if site.data.topics.assignments %}
-                      {% assign all_assignments = all_assignments | concat: site.data.topics.assignments %}
-                    {% endif %}
-                    {% if site.data.institutes_topics.assignments %}
-                      {% assign all_assignments = all_assignments | concat: site.data.institutes_topics.assignments %}
-                    {% endif %}
-                    {% if site.data.summa_first_part_topics.assignments %}
-                      {% assign all_assignments = all_assignments | concat: site.data.summa_first_part_topics.assignments %}
-                    {% endif %}
-                    
-                    {% for assignment in all_assignments %}
-                    {% if assignment.topics contains subsubsubtopic.id %}
-                      {% for pair in site.data %}
-                        {% if pair[1].works %}
-                          {% for work in pair[1].works %}
-                            {% for structure_item in work.structure %}
-                              {% for child in structure_item.children %}
-                                {% if child.id == assignment.section_id %}
-                                   <li>
-                                    <a href="{{ '/works/' | append: work.id | append: '/' | relative_url }}">
-                                      <em>{{ work.title }}</em>
-                                    </a>
-                                    {% comment %}optional: show section number/type after work link{% endcomment %}
-                                    — {{ child.type | capitalize }} {{ child.number }}
-                                  </li>
-                                {% endif %}
-                              {% endfor %}
-                            {% endfor %}
-                          {% endfor %}
-                        {% endif %}
-                      {% endfor %}
-                    {% endif %}
-                  {% endfor %}
-                </ul>
-              {% endif %}
-            {% endfor %}
-          {% endif %}
-        {% endfor %}
-      {% endif %}
-    {% endfor %}
-  {% endif %}
+  {% include topic_children.html children=topic.children parent_level=2 all_assignments=all_assignments %}
 {% endfor %}
