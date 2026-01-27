@@ -173,3 +173,576 @@ works:
               - site: EEBO
                 language: en
                 url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.15?rgn=div2;view=fulltext
+      - type: part
+        id: part_2
+        number: 2
+        title:
+          en: "The Second Part"
+        children:
+          - type: chapter
+            id: cp1583_2_1
+            number: 1
+            title:
+              en: "Of Sinne, especiallie originall sinne; and of the vniuersall corrupting of mans nature"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.1?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_2_2
+            number: 2
+            title:
+              en: "Of Free will"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.2?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_2_3
+            number: 3
+            title:
+              en: "Of the Lawe"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.3?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_2_4
+            number: 4
+            title:
+              en: "Of Idolatrie, forbidden by the first Commandement"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.4?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_2_5
+            number: 5
+            title:
+              en: "The second Precept, which concerneth Images"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.5?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_2_6
+            number: 6
+            title:
+              en: "The third Precept; of the sanctification of the name of God"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.6?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_2_7
+            number: 7
+            title:
+              en: "The fourth precept; of sanctifying the sabboth daie"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.7?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_2_8
+            number: 8
+            title:
+              en: "The fift precept; of the honouring of Superiours"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.8?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_2_9
+            number: 9
+            title:
+              en: "Wherein is treated vpon the sixt precept; and first of Friendship"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.9?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_2_10
+            number: 10
+            title:
+              en: "The seuenth precept; Thou shalt not commit adulterie"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.10?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_2_11
+            number: 11
+            title:
+              en: "Of Whoredome, fornication, adulterie, and other noisome things"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.11?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_2_12
+            number: 12
+            title:
+              en: "The eight commandement; Thou shalt not steale"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.12?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_2_13
+            number: 13
+            title:
+              en: "The ninth Precept; Thou shalt not beare false witnesse"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.13?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_2_14
+            number: 14
+            title:
+              en: "The last precept; Thou shalt not lust"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.14?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_2_15
+            number: 15
+            title:
+              en: "Whether the commandement of God may be kept in this life"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.15?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_2_16
+            number: 16
+            title:
+              en: "Of the likenesse and vnlikenesse of the Old and New couenant"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.16?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_2_17
+            number: 17
+            title:
+              en: "Of Christ, and his manifestation in the flesh"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.17?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_2_18
+            number: 18
+            title:
+              en: "A plaine exposition of Peter Martyr, vpon the twelue articles of the Christian faith"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:8.18?rgn=div2;view=fulltext
+      - type: part
+        id: part_3
+        number: 3
+        title:
+          en: "The Third Part"
+        children:
+          - type: chapter
+            id: cp1583_3_1
+            number: 1
+            title:
+              en: "Of Predestination. Vpon the ninth chapter to the Romans, at the latter end of the chapter."
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:9.1?rgn=div2;view=fulltext
+          - type: chapter
+            id: cp1583_3_2
+            number: 2
+            title:
+              en: "Of the calling of God, and of his grace."
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:9.2?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_3_3
+            number: 3
+            title:
+              en: "Of Faith, and the certeintie thereof; and of the vices of feare and securitie, which are contrarie vnto the same: also of the nature of our adoption, and hope, and vnion with Christ."
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:9.3?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_3_4
+            number: 4
+            title:
+              en: "Of Iustification; Vpon the epistle to the Romans, at the end of the 11. chapter."
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:9.4?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_3_5
+            number: 5
+            title:
+              en: "Of peace and Christian libertie; where al∣so is intreated of offense of the consci∣ence, and especiallie of the choise of meates."
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:9.5?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_3_6
+            number: 6
+            title:
+              en: "Of vowes in generall; also of the vow of the Nazarites, of Ieptha, and of the Rechabits."
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:9.6?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_3_7
+            number: 7
+            title:
+              en: "Of Marriage, and Sole life; especiallie of Ministers."
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:9.7?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_3_8
+            number: 8
+            title:
+              en: "Of Repentance; where also is trea∣ted of Sacraments."
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:9.8?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_3_9
+            number: 9
+            title:
+              en: "Wherein is treated and discoursed of workes of Supererogation, of Purgato∣rie, and of other papisticall corrup∣tions."
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:9.9?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_3_10
+            number: 10
+            title:
+              en: "Of Teares, fasting, and watchings, being the outward exercises of repentance."
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:9.10?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_3_11
+            number: 11
+            title:
+              en: "Of Christian life; wherein is treated of diuers vocations, of friendship, of the confession of Christ, also of the exam∣ple of Naaman the Syrian."
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:9.11?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_3_12
+            number: 12
+            title:
+              en: "Of Fortitude, of mortification, of endu∣ring the crosse and afflictions."
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:9.12?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_3_13
+            number: 13
+            title:
+              en: "Of Praiers, and of the intercession of Christ."
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:9.13?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_3_14
+            number: 14
+            title:
+              en: "Of Death, of Consolation, of Mourning and Buriall."
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:9.14?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_3_15
+            number: 15
+            title:
+              en: "Of the Resurrection."
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:9.15?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_3_16
+            number: 16
+            title:
+              en: "Of the taking up of Elias, and Henoch."
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:9.16?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_3_17
+            number: 17
+            title:
+              en: "Of the end of the world, of the last iudge∣ment, of eternall life, of the equalitie of rewards."
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:9.17?rgn=div2;view=fulltext
+      - type: part
+        id: part_4
+        number: 4
+        title:
+          en: "The Fourth Part"
+        children:
+          - type: chapter
+            id: cp1583_4_1
+            number: 1
+            title:
+              en: "Of the Church, and of the Functions, Calling, Office, Dignitie and efficacie of the Ministerie and Ministers in the same Church"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.1?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_2
+            number: 2
+            title:
+              en: "Of the receiuing and not receiuing of rewards, gifts, and offices. And also of goods Ecclesiasticall, and the immunitie of Ecclesiasticall persons"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.2?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_3
+            number: 3
+            title:
+              en: "Whether two heads may be in the Church, one visible and another inuisible"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.3?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_4
+            number: 4
+            title:
+              en: "Of Ecclesiasticall lawes, of Traditions, of the discerning of spirits, of Councels, Fathers, and of the Canons, which they call the Canons of the Apostles"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.4?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_5
+            number: 5
+            title:
+              en: "Of discipline and gouernment of the Church, and namely of Excommunication: Of order Ecclesiasticall: Of Temples and their ornaments"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.5?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_6
+            number: 6
+            title:
+              en: "Of Schisme, and whether the Gospellers be Schismatikes because they haue alienated themselues from the Papists"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.6?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_7
+            number: 7
+            title:
+              en: "Of Sacraments, and namely of Circumcision"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.7?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_8
+            number: 8
+            title:
+              en: "Of Baptisme, Baptising of Infants, and holinesse of Infants"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.8?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_9
+            number: 9
+            title:
+              en: "Of the dedication of Temples, wherein is intreated of sundrie corruptions of Baptisme"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.9?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_10
+            number: 10
+            title:
+              en: "A Treatise Of The Sacrament Of The Eucharist"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.10?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_11
+            number: 11
+            title:
+              en: "Whether it be lawfull in the Communion to vse one onely kinde"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.11?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_12
+            number: 12
+            title:
+              en: "Of the Masse, Also of Sacrifices"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.12?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_13
+            number: 13
+            title:
+              en: "Of a Magistrate, and of the difference betweene Ciuill and Ecclesiasticall power"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.13?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_14
+            number: 14
+            title:
+              en: "Of the office of Magistrates, especially in exercising of Iudgement"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.14?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_15
+            number: 15
+            title:
+              en: "Of Exile or Banishment"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.15?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_16
+            number: 16
+            title:
+              en: "Whether it be lawfull for a Christian man to goe to lawe"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.16?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_17
+            number: 17
+            title:
+              en: "Of Warre or Battell"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.17?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_18
+            number: 18
+            title:
+              en: "Whether Captiues ought to be kept or put to death"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.18?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_19
+            number: 19
+            title:
+              en: "Of a seuerall Conflict or Combate betweene twaine hand to hand"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.19?rgn=div2;view=fulltext
+
+          - type: chapter
+            id: cp1583_4_20
+            number: 20
+            title:
+              en: "Of Nobilitie, of Bondage, of Occupying marchandise, and ingrosing of wares"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.20?rgn=div2;view=fulltext
+          - type: chapter
+            id: cp1583_4_21
+            number: 21
+            title:
+              en: "Of Troubles and Sedition: further of the suffering of Tyrannie"
+            links:
+              - site: EEBO
+                language: en
+                url: https://quod.lib.umich.edu/e/eebo2/A14350.0001.001/1:10.21?rgn=div2;view=fulltext
