@@ -97,7 +97,9 @@
               {% for topic_id in section_assignment.topics %}
                 {% assign topic_def = topic_lookup | where: "id", topic_id | first %}
                 {% if topic_def %}
-                  <a href="{{ '/topics/#' | append: topic_id | relative_url }}" class="topic-tag">
+                  <a href="{{ '/topics/' | relative_url }}#{{ topic_id }}" class="topic-tag">
+                    {{ topic_def.name }}
+                  </a>
                     {{ topic_def.name }}
                   </a>{% unless forloop.last %}, {% endunless %}
                 {% endif %}
