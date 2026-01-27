@@ -1,0 +1,449 @@
+work_id: institutes-1559
+
+assignments:
+  # Book 1
+  - section_id: inst1559_1_1
+    topics:
+      - natural-revelation
+      - nature-of-god
+      - image-of-god
+  
+  - section_id: inst1559_1_2
+    topics:
+      - natural-revelation
+      - divine-knowledge
+  
+  - section_id: inst1559_1_3
+    topics:
+      - natural-revelation
+      - scripture
+  
+  - section_id: inst1559_1_4
+    topics:
+      - natural-revelation
+      - unbelief
+  
+  - section_id: inst1559_1_5
+    topics:
+      - creation
+      - divine-providence
+      - nature-of-god
+  
+  - section_id: inst1559_1_6
+    topics:
+      - scripture
+      - special-revelation
+      - authority
+  
+  - section_id: inst1559_1_7
+    topics:
+      - scripture
+      - inspiration
+      - work-of-spirit
+      - church-authority
+  
+  - section_id: inst1559_1_8
+    topics:
+      - scripture
+      - authority
+      - inspiration
+  
+  - section_id: inst1559_1_9
+    topics:
+      - scripture
+      - special-revelation
+  
+  - section_id: inst1559_1_10
+    topics:
+      - scripture
+      - idolatry
+      - nature-of-god
+  
+  - section_id: inst1559_1_11
+    topics:
+      - idolatry
+      - sacred-art
+      - worship
+  
+  - section_id: inst1559_1_12
+    topics:
+      - idolatry
+      - worship
+  
+  - section_id: inst1559_1_13
+    topics:
+      - trinity
+      - trinity-persons
+      - nature-of-god
+  
+  - section_id: inst1559_1_14
+    topics:
+      - creation
+      - creation-ex-nihilo
+      - divine-providence
+  
+  - section_id: inst1559_1_15
+    topics:
+      - creation-of-humanity
+      - image-of-god
+      - soul-and-body
+      - free-will
+  
+  - section_id: inst1559_1_16
+    topics:
+      - divine-providence
+      - creation
+  
+  - section_id: inst1559_1_17
+    topics:
+      - divine-providence
+  
+  - section_id: inst1559_1_18
+    topics:
+      - divine-providence
+      - cause-of-evil
+  
+  # Book 2
+  - section_id: inst1559_2_1
+    topics:
+      - the-fall
+      - original-sin
+      - effects-of-sin
+  
+  - section_id: inst1559_2_2
+    topics:
+      - free-will
+      - free-will-after-fall
+      - original-sin
+  
+  - section_id: inst1559_2_3
+    topics:
+      - original-sin
+      - effects-of-sin
+      - nature-of-sin
+  
+  - section_id: inst1559_2_4
+    topics:
+      - divine-providence
+      - grace
+      - free-will-and-grace
+  
+  - section_id: inst1559_2_5
+    topics:
+      - free-will
+      - grace
+  
+  - section_id: inst1559_2_6
+    topics:
+      - incarnation
+      - christology
+      - atonement
+  
+  - section_id: inst1559_2_7
+    topics:
+      - old-law
+      - moral-precepts
+      - new-law
+  
+  - section_id: inst1559_2_8
+    topics:
+      - moral-precepts
+      - old-law
+      - natural-law
+  
+  - section_id: inst1559_2_9
+    topics:
+      - old-law
+      - new-law
+      - christology
+  
+  - section_id: inst1559_2_10
+    topics:
+      - old-law
+      - new-law
+  
+  - section_id: inst1559_2_11
+    topics:
+      - old-law
+      - new-law
+  
+  - section_id: inst1559_2_12
+    topics:
+      - incarnation
+      - hypostatic-union
+      - necessity-of-incarnation
+  
+  - section_id: inst1559_2_13
+    topics:
+      - incarnation
+      - two-natures
+      - virgin-birth
+  
+  - section_id: inst1559_2_14
+    topics:
+      - hypostatic-union
+      - two-natures
+      - communication-of-idioms
+  
+  - section_id: inst1559_2_15
+    topics:
+      - offices-of-christ
+      - christ-as-prophet
+      - christ-as-priest
+      - christ-as-king
+  
+  - section_id: inst1559_2_16
+    topics:
+      - passion-of-christ
+      - atonement
+      - resurrection
+      - ascension
+  
+  - section_id: inst1559_2_17
+    topics:
+      - merit-of-christ
+      - atonement
+  
+  # Book 3
+  - section_id: inst1559_3_1
+    topics:
+      - work-of-spirit
+      - grace
+      - faith
+  
+  - section_id: inst1559_3_2
+    topics:
+      - faith
+      - nature-of-faith
+      - justifying-faith
+  
+  - section_id: inst1559_3_3
+    topics:
+      - regeneration
+      - repentance
+      - sanctification
+  
+  - section_id: inst1559_3_4
+    topics:
+      - repentance
+      - penance
+      - confession
+  
+  - section_id: inst1559_3_5
+    topics:
+      - penance
+      - purgatory
+      - satisfaction
+  
+  - section_id: inst1559_3_6
+    topics:
+      - sanctification
+      - moral-theology
+  
+  - section_id: inst1559_3_7
+    topics:
+      - sanctification
+      - virtues
+  
+  - section_id: inst1559_3_8
+    topics:
+      - sanctification
+      - fortitude
+      - spiritual-growth
+  
+  - section_id: inst1559_3_9
+    topics:
+      - eschatology
+      - heaven
+      - eternal-life
+  
+  - section_id: inst1559_3_10
+    topics:
+      - moral-theology
+      - creation-goodness
+  
+  - section_id: inst1559_3_11
+    topics:
+      - justification
+      - justification-by-faith-alone
+      - grace
+  
+  - section_id: inst1559_3_12
+    topics:
+      - justification
+      - final-judgment
+  
+  - section_id: inst1559_3_13
+    topics:
+      - justification
+      - imputation
+  
+  - section_id: inst1559_3_14
+    topics:
+      - justification
+      - sanctification
+      - progressive-sanctification
+  
+  - section_id: inst1559_3_15
+    topics:
+      - justification-and-works
+      - merit
+  
+  - section_id: inst1559_3_16
+    topics:
+      - justification
+      - justification-by-faith-alone
+  
+  - section_id: inst1559_3_17
+    topics:
+      - old-law
+      - new-law
+      - grace
+  
+  - section_id: inst1559_3_18
+    topics:
+      - justification-and-works
+      - merit
+  
+  - section_id: inst1559_3_19
+    topics:
+      - grace
+      - conscience
+      - moral-theology
+  
+  - section_id: inst1559_3_20
+    topics:
+      - prayer
+      - kinds-of-prayer
+  
+  - section_id: inst1559_3_21
+    topics:
+      - predestination
+      - election
+      - reprobation
+  
+  - section_id: inst1559_3_22
+    topics:
+      - predestination
+      - scripture
+  
+  - section_id: inst1559_3_23
+    topics:
+      - predestination
+      - election
+  
+  - section_id: inst1559_3_24
+    topics:
+      - election
+      - calling
+      - effectual-call
+  
+  - section_id: inst1559_3_25
+    topics:
+      - resurrection
+      - resurrection-body
+      - eschatology
+  
+  # Book 4
+  - section_id: inst1559_4_1
+    topics:
+      - nature-of-church
+      - marks-of-church
+      - body-of-christ
+  
+  - section_id: inst1559_4_2
+    topics:
+      - nature-of-church
+      - visible-invisible-church
+  
+  - section_id: inst1559_4_3
+    topics:
+      - ministry
+      - ordained-ministry
+  
+  - section_id: inst1559_4_4
+    topics:
+      - church-government
+      - ministry
+  
+  - section_id: inst1559_4_5
+    topics:
+      - church-government
+      - church-authority
+  
+  - section_id: inst1559_4_6
+    topics:
+      - church-authority
+      - papacy
+  
+  - section_id: inst1559_4_7
+    topics:
+      - church-authority
+      - papacy
+  
+  - section_id: inst1559_4_8
+    topics:
+      - church-authority
+      - scripture
+  
+  - section_id: inst1559_4_9
+    topics:
+      - councils
+      - church-authority
+  
+  - section_id: inst1559_4_10
+    topics:
+      - church-authority
+      - human-law
+  
+  - section_id: inst1559_4_11
+    topics:
+      - church-discipline
+      - church-authority
+  
+  - section_id: inst1559_4_12
+    topics:
+      - church-discipline
+  
+  - section_id: inst1559_4_13
+    topics:
+      - vows
+      - religious-life
+  
+  - section_id: inst1559_4_14
+    topics:
+      - sacraments
+      - nature-of-sacraments
+  
+  - section_id: inst1559_4_15
+    topics:
+      - baptism
+  
+  - section_id: inst1559_4_16
+    topics:
+      - baptism
+      - infant-baptism
+  
+  - section_id: inst1559_4_17
+    topics:
+      - eucharist
+      - real-presence
+  
+  - section_id: inst1559_4_18
+    topics:
+      - eucharist
+      - transubstantiation
+  
+  - section_id: inst1559_4_19
+    topics:
+      - sacraments
+      - penance
+      - anointing
+      - confirmation
+      - marriage
+      - holy-orders
+  
+  - section_id: inst1559_4_20
+    topics:
+      - human-law
+      - church-and-state
