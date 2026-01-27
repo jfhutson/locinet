@@ -15,14 +15,34 @@ permalink: /topics/
   {% endif %}
 {% endfor %}
 
-{% comment %}Display topics recursively{% endcomment %}
+{% comment %}Build a lookup: topic ID → array of work links{% endcomment %}
+{% assign topic_links = {} %}
+{% for assignment in all_assignments %}
+  {% assign topic_id_list = assignment.topics %}
+  {% for tid in topic_id_list %}
+    {% assign current_links = topic_links[tid] | default: empty %}
+    {% for pair in site.data %}
+      {% if pair[1].works %}
+        {% for work in pair[1].works %}
+          {% assign link = "/works/" | append: work.id | append: "/" | relative_url %}
+          {% assign current_links = current_links | push: link %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+    {% assign topic_links = topic_links | merge: { tid: current_links } %}
+  {% endfor %}
+{% endfor %}
+
+{% assign parent_level = 2 %}
 {% for topic in site.data.topics_definitions.topics %}
-  <h2 id="{{ topic.id }}">{{ topic.name }}</h2>
+  <h{{ parent_level }} id="{{ topic.id }}">{{ topic.name }}</h{{ parent_level }}>
   {% if topic.description %}
     <p>{{ topic.description }}</p>
   {% endif %}
 
-  {% assign parent_level = 3 %}
   {% assign children = topic.children | default: empty %}
-  {% include topic_children.html children=children parent_level=parent_level all_assignments=all_assignments %}
+  {% include topic_children.html 
+     children=children 
+     parent_level=3 
+     topic_links=topic_links %}
 {% endfor %}
