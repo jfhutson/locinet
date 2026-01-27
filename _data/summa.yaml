@@ -2,7 +2,7 @@ works:
   - id: summa
     title: Summa Theologiae
     short_title: ST
-    author: Thomas Aquinas
+    author: aquinas
     year: 1274
     structure:
       - type: part
