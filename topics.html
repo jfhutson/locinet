@@ -135,10 +135,10 @@ title: Topics Index
 }
 
 .section-item {
-  margin-bottom: 0.75rem;
-  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
   background: #f9fafb;
-  border-radius: 6px;
+  border-radius: 4px;
   border-left: 3px solid #8b5cf6;
 }
 
@@ -146,47 +146,20 @@ title: Topics Index
   background: #f3f4f6;
 }
 
-.work-title {
-  font-weight: 600;
-  color: #8b5cf6;
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.25rem;
-}
-
 .section-reference {
   color: #111827;
   font-weight: 500;
-  margin-bottom: 0.25rem;
 }
 
-.section-title {
-  color: #6b7280;
-  font-size: 0.875rem;
-  margin-bottom: 0.5rem;
-}
-
-.section-links {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.section-link {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  background: #8b5cf6;
-  color: white;
+.section-reference a {
+  color: #8b5cf6;
   text-decoration: none;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  transition: background 0.2s;
+  transition: color 0.2s;
 }
 
-.section-link:hover {
-  background: #7c3aed;
+.section-reference a:hover {
+  color: #7c3aed;
+  text-decoration: underline;
 }
 
 .no-sections {
@@ -204,27 +177,69 @@ title: Topics Index
   </div>
 
   {% assign topics_data = site.data.topics_definitions.topics %}
-  {% assign works = site.data.institutes.works %}
+  {% assign authors = site.data.authors.authors %}
   
-  {% comment %} Create a lookup of all topic assignments {% endcomment %}
-  {% assign topic_sections = "" | split: "" %}
+  {% comment %} Create a lookup of all topic assignments with full metadata {% endcomment %}
+  {% assign topic_entries = "" | split: "" %}
   
   {% comment %} Process Institutes topics {% endcomment %}
   {% if site.data.institutes_topics %}
     {% for assignment in site.data.institutes_topics.assignments %}
       {% for topic_id in assignment.topics %}
-        {% assign entry = assignment.section_id | append: "|" | append: topic_id | append: "|institutes-1559" %}
-        {% assign topic_sections = topic_sections | push: entry %}
+        {% for work in site.data.institutes.works %}
+          {% if work.id == site.data.institutes_topics.work_id %}
+            {% for book in work.structure %}
+              {% for chapter in book.children %}
+                {% if chapter.id == assignment.section_id %}
+                  {% assign entry_hash = "" | split: "" %}
+                  {% assign entry_hash = entry_hash | push: topic_id %}
+                  {% assign entry_hash = entry_hash | push: work.id %}
+                  {% assign entry_hash = entry_hash | push: work.author %}
+                  {% assign entry_hash = entry_hash | push: work.short_title %}
+                  {% assign entry_hash = entry_hash | push: book.number %}
+                  {% assign entry_hash = entry_hash | push: chapter.number %}
+                  {% assign first_link = "" %}
+                  {% if chapter.links.size > 0 %}
+                    {% assign first_link = chapter.links[0].url %}
+                  {% endif %}
+                  {% assign entry_hash = entry_hash | push: first_link %}
+                  {% assign topic_entries = topic_entries | push: entry_hash %}
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
       {% endfor %}
     {% endfor %}
   {% endif %}
   
   {% comment %} Process Summa topics if they exist {% endcomment %}
-  {% if site.data.summa_topics %}
+  {% if site.data.summa_topics and site.data.summa %}
     {% for assignment in site.data.summa_topics.assignments %}
       {% for topic_id in assignment.topics %}
-        {% assign entry = assignment.section_id | append: "|" | append: topic_id | append: "|" | append: site.data.summa_topics.work_id %}
-        {% assign topic_sections = topic_sections | push: entry %}
+        {% for work in site.data.summa.works %}
+          {% if work.id == site.data.summa_topics.work_id %}
+            {% for part in work.structure %}
+              {% for question in part.children %}
+                {% if question.id == assignment.section_id %}
+                  {% assign entry_hash = "" | split: "" %}
+                  {% assign entry_hash = entry_hash | push: topic_id %}
+                  {% assign entry_hash = entry_hash | push: work.id %}
+                  {% assign entry_hash = entry_hash | push: work.author %}
+                  {% assign entry_hash = entry_hash | push: work.short_title %}
+                  {% assign entry_hash = entry_hash | push: part.number %}
+                  {% assign entry_hash = entry_hash | push: question.number %}
+                  {% assign first_link = "" %}
+                  {% if question.links.size > 0 %}
+                    {% assign first_link = question.links[0].url %}
+                  {% endif %}
+                  {% assign entry_hash = entry_hash | push: first_link %}
+                  {% assign topic_entries = topic_entries | push: entry_hash %}
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
       {% endfor %}
     {% endfor %}
   {% endif %}
@@ -238,75 +253,127 @@ title: Topics Index
       </div>
       
       <div class="topic-content">
-        {% comment %} Find sections for this topic {% endcomment %}
         {% assign sections_found = false %}
-        <ul class="sections-list">
-          {% for entry in topic_sections %}
-            {% assign parts = entry | split: "|" %}
-            {% if parts[1] == topic1.id %}
-              {% assign sections_found = true %}
-              {% assign section_id = parts[0] %}
-              {% assign work_id = parts[2] %}
-              
-              {% comment %} Find the work and section details {% endcomment %}
-              {% for work in site.data.institutes.works %}
-                {% if work.id == work_id %}
-                  {% for book in work.structure %}
-                    {% for chapter in book.children %}
-                      {% if chapter.id == section_id %}
-                        <li class="section-item">
-                          <div class="work-title">{{ work.short_title | default: work.title }}</div>
-                          <div class="section-reference">Book {{ book.number }}, Chapter {{ chapter.number }}</div>
-                          <div class="section-title">{{ chapter.title.en }}</div>
-                          {% if chapter.links %}
-                            <div class="section-links">
-                              {% for link in chapter.links %}
-                                <a href="{{ link.url }}" class="section-link" target="_blank">
-                                  {{ link.site }} ({{ link.language | upcase }})
-                                </a>
-                              {% endfor %}
-                            </div>
-                          {% endif %}
-                        </li>
-                      {% endif %}
-                    {% endfor %}
-                  {% endfor %}
+        
+        {% comment %} Group entries by work {% endcomment %}
+        {% assign work_groups = "" | split: "" %}
+        {% for entry in topic_entries %}
+          {% if entry[0] == topic1.id %}
+            {% assign sections_found = true %}
+            {% assign work_key = entry[1] %}
+            {% assign found_group = false %}
+            {% for group in work_groups %}
+              {% if group[0] == work_key %}
+                {% assign found_group = true %}
+              {% endif %}
+            {% endfor %}
+            {% unless found_group %}
+              {% assign new_group = "" | split: "" %}
+              {% assign new_group = new_group | push: work_key %}
+              {% assign work_groups = work_groups | push: new_group %}
+            {% endunless %}
+          {% endif %}
+        {% endfor %}
+        
+        {% if sections_found %}
+          <ul class="sections-list">
+            {% for group_key in work_groups %}
+              {% assign work_key = group_key[0] %}
+              {% assign work_entries = "" | split: "" %}
+              {% for entry in topic_entries %}
+                {% if entry[0] == topic1.id and entry[1] == work_key %}
+                  {% assign work_entries = work_entries | push: entry %}
                 {% endif %}
               {% endfor %}
               
-              {% comment %} Check summa if it exists {% endcomment %}
-              {% if site.data.summa %}
-                {% for work in site.data.summa.works %}
-                  {% if work.id == work_id %}
-                    {% for part in work.structure %}
-                      {% for question in part.children %}
-                        {% if question.id == section_id %}
-                          <li class="section-item">
-                            <div class="work-title">{{ work.short_title | default: work.title }}</div>
-                            <div class="section-reference">{{ part.title.en }}, Question {{ question.number }}</div>
-                            <div class="section-title">{{ question.title.en }}</div>
-                            {% if question.links %}
-                              <div class="section-links">
-                                {% for link in question.links %}
-                                  <a href="{{ link.url }}" class="section-link" target="_blank">
-                                    {{ link.site }} ({{ link.language | upcase }})
-                                  </a>
-                                {% endfor %}
-                              </div>
-                            {% endif %}
-                          </li>
-                        {% endif %}
-                      {% endfor %}
-                    {% endfor %}
+              {% comment %} Sort entries by book and chapter number {% endcomment %}
+              {% assign sorted_entries = work_entries | sort: 4 | sort: 5 %}
+              
+              {% comment %} Find author name {% endcomment %}
+              {% assign author_name = "" %}
+              {% for author in authors %}
+                {% if author.id == sorted_entries[0][2] %}
+                  {% assign author_name = author.short_name %}
+                {% endif %}
+              {% endfor %}
+              
+              {% comment %} Build ranges {% endcomment %}
+              {% assign ranges = "" | split: "" %}
+              {% assign range_start = nil %}
+              {% assign range_end = nil %}
+              {% assign current_book = nil %}
+              {% assign first_link = "" %}
+              
+              {% for entry in sorted_entries %}
+                {% assign book_num = entry[4] %}
+                {% assign chapter_num = entry[5] %}
+                
+                {% if current_book == nil or current_book != book_num %}
+                  {% if range_start %}
+                    {% assign range_text = "" %}
+                    {% if range_start == range_end %}
+                      {% assign range_text = current_book | append: "." | append: range_start %}
+                    {% else %}
+                      {% assign range_text = current_book | append: "." | append: range_start | append: "-" | append: range_end %}
+                    {% endif %}
+                    {% assign range_item = "" | split: "" %}
+                    {% assign range_item = range_item | push: range_text %}
+                    {% assign range_item = range_item | push: first_link %}
+                    {% assign ranges = ranges | push: range_item %}
                   {% endif %}
-                {% endfor %}
+                  {% assign current_book = book_num %}
+                  {% assign range_start = chapter_num %}
+                  {% assign range_end = chapter_num %}
+                  {% assign first_link = entry[6] %}
+                {% else %}
+                  {% assign expected = range_end | plus: 1 %}
+                  {% if chapter_num == expected %}
+                    {% assign range_end = chapter_num %}
+                  {% else %}
+                    {% assign range_text = "" %}
+                    {% if range_start == range_end %}
+                      {% assign range_text = current_book | append: "." | append: range_start %}
+                    {% else %}
+                      {% assign range_text = current_book | append: "." | append: range_start | append: "-" | append: range_end %}
+                    {% endif %}
+                    {% assign range_item = "" | split: "" %}
+                    {% assign range_item = range_item | push: range_text %}
+                    {% assign range_item = range_item | push: first_link %}
+                    {% assign ranges = ranges | push: range_item %}
+                    {% assign range_start = chapter_num %}
+                    {% assign range_end = chapter_num %}
+                    {% assign first_link = entry[6] %}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+              
+              {% if range_start %}
+                {% assign range_text = "" %}
+                {% if range_start == range_end %}
+                  {% assign range_text = current_book | append: "." | append: range_start %}
+                {% else %}
+                  {% assign range_text = current_book | append: "." | append: range_start | append: "-" | append: range_end %}
+                {% endif %}
+                {% assign range_item = "" | split: "" %}
+                {% assign range_item = range_item | push: range_text %}
+                {% assign range_item = range_item | push: first_link %}
+                {% assign ranges = ranges | push: range_item %}
               {% endif %}
-            {% endif %}
-          {% endfor %}
-        </ul>
-        {% unless sections_found %}
+              
+              <li class="section-item">
+                <div class="section-reference">
+                  {{ author_name }} {{ sorted_entries[0][3] }}
+                  {% for range in ranges %}
+                    {% if forloop.index > 1 %}, {% endif %}
+                    <a href="{{ range[1] }}" target="_blank">{{ range[0] }}</a>
+                  {% endfor %}
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
           <p class="no-sections">No sections tagged with this topic yet</p>
-        {% endunless %}
+        {% endif %}
         
         {% comment %} Display Level 2 Topics {% endcomment %}
         {% if topic1.children %}
@@ -318,71 +385,121 @@ title: Topics Index
               </div>
               
               {% assign sections_found = false %}
-              <ul class="sections-list">
-                {% for entry in topic_sections %}
-                  {% assign parts = entry | split: "|" %}
-                  {% if parts[1] == topic2.id %}
-                    {% assign sections_found = true %}
-                    {% assign section_id = parts[0] %}
-                    {% assign work_id = parts[2] %}
-                    
-                    {% for work in site.data.institutes.works %}
-                      {% if work.id == work_id %}
-                        {% for book in work.structure %}
-                          {% for chapter in book.children %}
-                            {% if chapter.id == section_id %}
-                              <li class="section-item">
-                                <div class="work-title">{{ work.short_title | default: work.title }}</div>
-                                <div class="section-reference">Book {{ book.number }}, Chapter {{ chapter.number }}</div>
-                                <div class="section-title">{{ chapter.title.en }}</div>
-                                {% if chapter.links %}
-                                  <div class="section-links">
-                                    {% for link in chapter.links %}
-                                      <a href="{{ link.url }}" class="section-link" target="_blank">
-                                        {{ link.site }} ({{ link.language | upcase }})
-                                      </a>
-                                    {% endfor %}
-                                  </div>
-                                {% endif %}
-                              </li>
-                            {% endif %}
-                          {% endfor %}
-                        {% endfor %}
+              {% assign work_groups = "" | split: "" %}
+              {% for entry in topic_entries %}
+                {% if entry[0] == topic2.id %}
+                  {% assign sections_found = true %}
+                  {% assign work_key = entry[1] %}
+                  {% assign found_group = false %}
+                  {% for group in work_groups %}
+                    {% if group[0] == work_key %}
+                      {% assign found_group = true %}
+                    {% endif %}
+                  {% endfor %}
+                  {% unless found_group %}
+                    {% assign new_group = "" | split: "" %}
+                    {% assign new_group = new_group | push: work_key %}
+                    {% assign work_groups = work_groups | push: new_group %}
+                  {% endunless %}
+                {% endif %}
+              {% endfor %}
+              
+              {% if sections_found %}
+                <ul class="sections-list">
+                  {% for group_key in work_groups %}
+                    {% assign work_key = group_key[0] %}
+                    {% assign work_entries = "" | split: "" %}
+                    {% for entry in topic_entries %}
+                      {% if entry[0] == topic2.id and entry[1] == work_key %}
+                        {% assign work_entries = work_entries | push: entry %}
                       {% endif %}
                     {% endfor %}
                     
-                    {% if site.data.summa %}
-                      {% for work in site.data.summa.works %}
-                        {% if work.id == work_id %}
-                          {% for part in work.structure %}
-                            {% for question in part.children %}
-                              {% if question.id == section_id %}
-                                <li class="section-item">
-                                  <div class="work-title">{{ work.short_title | default: work.title }}</div>
-                                  <div class="section-reference">{{ part.title.en }}, Question {{ question.number }}</div>
-                                  <div class="section-title">{{ question.title.en }}</div>
-                                  {% if question.links %}
-                                    <div class="section-links">
-                                      {% for link in question.links %}
-                                        <a href="{{ link.url }}" class="section-link" target="_blank">
-                                          {{ link.site }} ({{ link.language | upcase }})
-                                        </a>
-                                      {% endfor %}
-                                    </div>
-                                  {% endif %}
-                                </li>
-                              {% endif %}
-                            {% endfor %}
-                          {% endfor %}
+                    {% assign sorted_entries = work_entries | sort: 4 | sort: 5 %}
+                    
+                    {% assign author_name = "" %}
+                    {% for author in authors %}
+                      {% if author.id == sorted_entries[0][2] %}
+                        {% assign author_name = author.short_name %}
+                      {% endif %}
+                    {% endfor %}
+                    
+                    {% assign ranges = "" | split: "" %}
+                    {% assign range_start = nil %}
+                    {% assign range_end = nil %}
+                    {% assign current_book = nil %}
+                    {% assign first_link = "" %}
+                    
+                    {% for entry in sorted_entries %}
+                      {% assign book_num = entry[4] %}
+                      {% assign chapter_num = entry[5] %}
+                      
+                      {% if current_book == nil or current_book != book_num %}
+                        {% if range_start %}
+                          {% assign range_text = "" %}
+                          {% if range_start == range_end %}
+                            {% assign range_text = current_book | append: "." | append: range_start %}
+                          {% else %}
+                            {% assign range_text = current_book | append: "." | append: range_start | append: "-" | append: range_end %}
+                          {% endif %}
+                          {% assign range_item = "" | split: "" %}
+                          {% assign range_item = range_item | push: range_text %}
+                          {% assign range_item = range_item | push: first_link %}
+                          {% assign ranges = ranges | push: range_item %}
                         {% endif %}
-                      {% endfor %}
+                        {% assign current_book = book_num %}
+                        {% assign range_start = chapter_num %}
+                        {% assign range_end = chapter_num %}
+                        {% assign first_link = entry[6] %}
+                      {% else %}
+                        {% assign expected = range_end | plus: 1 %}
+                        {% if chapter_num == expected %}
+                          {% assign range_end = chapter_num %}
+                        {% else %}
+                          {% assign range_text = "" %}
+                          {% if range_start == range_end %}
+                            {% assign range_text = current_book | append: "." | append: range_start %}
+                          {% else %}
+                            {% assign range_text = current_book | append: "." | append: range_start | append: "-" | append: range_end %}
+                          {% endif %}
+                          {% assign range_item = "" | split: "" %}
+                          {% assign range_item = range_item | push: range_text %}
+                          {% assign range_item = range_item | push: first_link %}
+                          {% assign ranges = ranges | push: range_item %}
+                          {% assign range_start = chapter_num %}
+                          {% assign range_end = chapter_num %}
+                          {% assign first_link = entry[6] %}
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                    
+                    {% if range_start %}
+                      {% assign range_text = "" %}
+                      {% if range_start == range_end %}
+                        {% assign range_text = current_book | append: "." | append: range_start %}
+                      {% else %}
+                        {% assign range_text = current_book | append: "." | append: range_start | append: "-" | append: range_end %}
+                      {% endif %}
+                      {% assign range_item = "" | split: "" %}
+                      {% assign range_item = range_item | push: range_text %}
+                      {% assign range_item = range_item | push: first_link %}
+                      {% assign ranges = ranges | push: range_item %}
                     {% endif %}
-                  {% endif %}
-                {% endfor %}
-              </ul>
-              {% unless sections_found %}
+                    
+                    <li class="section-item">
+                      <div class="section-reference">
+                        {{ author_name }} {{ sorted_entries[0][3] }}
+                        {% for range in ranges %}
+                          {% if forloop.index > 1 %}, {% endif %}
+                          <a href="{{ range[1] }}" target="_blank">{{ range[0] }}</a>
+                        {% endfor %}
+                      </div>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
                 <p class="no-sections">No sections tagged with this topic yet</p>
-              {% endunless %}
+              {% endif %}
               
               {% comment %} Display Level 3 Topics {% endcomment %}
               {% if topic2.children %}
@@ -394,71 +511,121 @@ title: Topics Index
                     </div>
                     
                     {% assign sections_found = false %}
-                    <ul class="sections-list">
-                      {% for entry in topic_sections %}
-                        {% assign parts = entry | split: "|" %}
-                        {% if parts[1] == topic3.id %}
-                          {% assign sections_found = true %}
-                          {% assign section_id = parts[0] %}
-                          {% assign work_id = parts[2] %}
-                          
-                          {% for work in site.data.institutes.works %}
-                            {% if work.id == work_id %}
-                              {% for book in work.structure %}
-                                {% for chapter in book.children %}
-                                  {% if chapter.id == section_id %}
-                                    <li class="section-item">
-                                      <div class="work-title">{{ work.short_title | default: work.title }}</div>
-                                      <div class="section-reference">Book {{ book.number }}, Chapter {{ chapter.number }}</div>
-                                      <div class="section-title">{{ chapter.title.en }}</div>
-                                      {% if chapter.links %}
-                                        <div class="section-links">
-                                          {% for link in chapter.links %}
-                                            <a href="{{ link.url }}" class="section-link" target="_blank">
-                                              {{ link.site }} ({{ link.language | upcase }})
-                                            </a>
-                                          {% endfor %}
-                                        </div>
-                                      {% endif %}
-                                    </li>
-                                  {% endif %}
-                                {% endfor %}
-                              {% endfor %}
+                    {% assign work_groups = "" | split: "" %}
+                    {% for entry in topic_entries %}
+                      {% if entry[0] == topic3.id %}
+                        {% assign sections_found = true %}
+                        {% assign work_key = entry[1] %}
+                        {% assign found_group = false %}
+                        {% for group in work_groups %}
+                          {% if group[0] == work_key %}
+                            {% assign found_group = true %}
+                          {% endif %}
+                        {% endfor %}
+                        {% unless found_group %}
+                          {% assign new_group = "" | split: "" %}
+                          {% assign new_group = new_group | push: work_key %}
+                          {% assign work_groups = work_groups | push: new_group %}
+                        {% endunless %}
+                      {% endif %}
+                    {% endfor %}
+                    
+                    {% if sections_found %}
+                      <ul class="sections-list">
+                        {% for group_key in work_groups %}
+                          {% assign work_key = group_key[0] %}
+                          {% assign work_entries = "" | split: "" %}
+                          {% for entry in topic_entries %}
+                            {% if entry[0] == topic3.id and entry[1] == work_key %}
+                              {% assign work_entries = work_entries | push: entry %}
                             {% endif %}
                           {% endfor %}
                           
-                          {% if site.data.summa %}
-                            {% for work in site.data.summa.works %}
-                              {% if work.id == work_id %}
-                                {% for part in work.structure %}
-                                  {% for question in part.children %}
-                                    {% if question.id == section_id %}
-                                      <li class="section-item">
-                                        <div class="work-title">{{ work.short_title | default: work.title }}</div>
-                                        <div class="section-reference">{{ part.title.en }}, Question {{ question.number }}</div>
-                                        <div class="section-title">{{ question.title.en }}</div>
-                                        {% if question.links %}
-                                          <div class="section-links">
-                                            {% for link in question.links %}
-                                              <a href="{{ link.url }}" class="section-link" target="_blank">
-                                                {{ link.site }} ({{ link.language | upcase }})
-                                              </a>
-                                            {% endfor %}
-                                          </div>
-                                        {% endif %}
-                                      </li>
-                                    {% endif %}
-                                  {% endfor %}
-                                {% endfor %}
+                          {% assign sorted_entries = work_entries | sort: 4 | sort: 5 %}
+                          
+                          {% assign author_name = "" %}
+                          {% for author in authors %}
+                            {% if author.id == sorted_entries[0][2] %}
+                              {% assign author_name = author.short_name %}
+                            {% endif %}
+                          {% endfor %}
+                          
+                          {% assign ranges = "" | split: "" %}
+                          {% assign range_start = nil %}
+                          {% assign range_end = nil %}
+                          {% assign current_book = nil %}
+                          {% assign first_link = "" %}
+                          
+                          {% for entry in sorted_entries %}
+                            {% assign book_num = entry[4] %}
+                            {% assign chapter_num = entry[5] %}
+                            
+                            {% if current_book == nil or current_book != book_num %}
+                              {% if range_start %}
+                                {% assign range_text = "" %}
+                                {% if range_start == range_end %}
+                                  {% assign range_text = current_book | append: "." | append: range_start %}
+                                {% else %}
+                                  {% assign range_text = current_book | append: "." | append: range_start | append: "-" | append: range_end %}
+                                {% endif %}
+                                {% assign range_item = "" | split: "" %}
+                                {% assign range_item = range_item | push: range_text %}
+                                {% assign range_item = range_item | push: first_link %}
+                                {% assign ranges = ranges | push: range_item %}
                               {% endif %}
-                            {% endfor %}
+                              {% assign current_book = book_num %}
+                              {% assign range_start = chapter_num %}
+                              {% assign range_end = chapter_num %}
+                              {% assign first_link = entry[6] %}
+                            {% else %}
+                              {% assign expected = range_end | plus: 1 %}
+                              {% if chapter_num == expected %}
+                                {% assign range_end = chapter_num %}
+                              {% else %}
+                                {% assign range_text = "" %}
+                                {% if range_start == range_end %}
+                                  {% assign range_text = current_book | append: "." | append: range_start %}
+                                {% else %}
+                                  {% assign range_text = current_book | append: "." | append: range_start | append: "-" | append: range_end %}
+                                {% endif %}
+                                {% assign range_item = "" | split: "" %}
+                                {% assign range_item = range_item | push: range_text %}
+                                {% assign range_item = range_item | push: first_link %}
+                                {% assign ranges = ranges | push: range_item %}
+                                {% assign range_start = chapter_num %}
+                                {% assign range_end = chapter_num %}
+                                {% assign first_link = entry[6] %}
+                              {% endif %}
+                            {% endif %}
+                          {% endfor %}
+                          
+                          {% if range_start %}
+                            {% assign range_text = "" %}
+                            {% if range_start == range_end %}
+                              {% assign range_text = current_book | append: "." | append: range_start %}
+                            {% else %}
+                              {% assign range_text = current_book | append: "." | append: range_start | append: "-" | append: range_end %}
+                            {% endif %}
+                            {% assign range_item = "" | split: "" %}
+                            {% assign range_item = range_item | push: range_text %}
+                            {% assign range_item = range_item | push: first_link %}
+                            {% assign ranges = ranges | push: range_item %}
                           {% endif %}
-                        {% endif %}
-                      {% endfor %}
-                    </ul>
-                    {% unless sections_found %}
+                          
+                          <li class="section-item">
+                            <div class="section-reference">
+                              {{ author_name }} {{ sorted_entries[0][3] }}
+                              {% for range in ranges %}
+                                {% if forloop.index > 1 %}, {% endif %}
+                                <a href="{{ range[1] }}" target="_blank">{{ range[0] }}</a>
+                              {% endfor %}
+                            </div>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% else %}
                       <p class="no-sections">No sections tagged with this topic yet</p>
-                    {% endunless %}
+                    {% endif %}
                     
                     {% comment %} Display Level 4 Topics {% endcomment %}
                     {% if topic3.children %}
@@ -470,71 +637,121 @@ title: Topics Index
                           </div>
                           
                           {% assign sections_found = false %}
-                          <ul class="sections-list">
-                            {% for entry in topic_sections %}
-                              {% assign parts = entry | split: "|" %}
-                              {% if parts[1] == topic4.id %}
-                                {% assign sections_found = true %}
-                                {% assign section_id = parts[0] %}
-                                {% assign work_id = parts[2] %}
-                                
-                                {% for work in site.data.institutes.works %}
-                                  {% if work.id == work_id %}
-                                    {% for book in work.structure %}
-                                      {% for chapter in book.children %}
-                                        {% if chapter.id == section_id %}
-                                          <li class="section-item">
-                                            <div class="work-title">{{ work.short_title | default: work.title }}</div>
-                                            <div class="section-reference">Book {{ book.number }}, Chapter {{ chapter.number }}</div>
-                                            <div class="section-title">{{ chapter.title.en }}</div>
-                                            {% if chapter.links %}
-                                              <div class="section-links">
-                                                {% for link in chapter.links %}
-                                                  <a href="{{ link.url }}" class="section-link" target="_blank">
-                                                    {{ link.site }} ({{ link.language | upcase }})
-                                                  </a>
-                                                {% endfor %}
-                                              </div>
-                                            {% endif %}
-                                          </li>
-                                        {% endif %}
-                                      {% endfor %}
-                                    {% endfor %}
+                          {% assign work_groups = "" | split: "" %}
+                          {% for entry in topic_entries %}
+                            {% if entry[0] == topic4.id %}
+                              {% assign sections_found = true %}
+                              {% assign work_key = entry[1] %}
+                              {% assign found_group = false %}
+                              {% for group in work_groups %}
+                                {% if group[0] == work_key %}
+                                  {% assign found_group = true %}
+                                {% endif %}
+                              {% endfor %}
+                              {% unless found_group %}
+                                {% assign new_group = "" | split: "" %}
+                                {% assign new_group = new_group | push: work_key %}
+                                {% assign work_groups = work_groups | push: new_group %}
+                              {% endunless %}
+                            {% endif %}
+                          {% endfor %}
+                          
+                          {% if sections_found %}
+                            <ul class="sections-list">
+                              {% for group_key in work_groups %}
+                                {% assign work_key = group_key[0] %}
+                                {% assign work_entries = "" | split: "" %}
+                                {% for entry in topic_entries %}
+                                  {% if entry[0] == topic4.id and entry[1] == work_key %}
+                                    {% assign work_entries = work_entries | push: entry %}
                                   {% endif %}
                                 {% endfor %}
                                 
-                                {% if site.data.summa %}
-                                  {% for work in site.data.summa.works %}
-                                    {% if work.id == work_id %}
-                                      {% for part in work.structure %}
-                                        {% for question in part.children %}
-                                          {% if question.id == section_id %}
-                                            <li class="section-item">
-                                              <div class="work-title">{{ work.short_title | default: work.title }}</div>
-                                              <div class="section-reference">{{ part.title.en }}, Question {{ question.number }}</div>
-                                              <div class="section-title">{{ question.title.en }}</div>
-                                              {% if question.links %}
-                                                <div class="section-links">
-                                                  {% for link in question.links %}
-                                                    <a href="{{ link.url }}" class="section-link" target="_blank">
-                                                      {{ link.site }} ({{ link.language | upcase }})
-                                                    </a>
-                                                  {% endfor %}
-                                                </div>
-                                              {% endif %}
-                                            </li>
-                                          {% endif %}
-                                        {% endfor %}
-                                      {% endfor %}
+                                {% assign sorted_entries = work_entries | sort: 4 | sort: 5 %}
+                                
+                                {% assign author_name = "" %}
+                                {% for author in authors %}
+                                  {% if author.id == sorted_entries[0][2] %}
+                                    {% assign author_name = author.short_name %}
+                                  {% endif %}
+                                {% endfor %}
+                                
+                                {% assign ranges = "" | split: "" %}
+                                {% assign range_start = nil %}
+                                {% assign range_end = nil %}
+                                {% assign current_book = nil %}
+                                {% assign first_link = "" %}
+                                
+                                {% for entry in sorted_entries %}
+                                  {% assign book_num = entry[4] %}
+                                  {% assign chapter_num = entry[5] %}
+                                  
+                                  {% if current_book == nil or current_book != book_num %}
+                                    {% if range_start %}
+                                      {% assign range_text = "" %}
+                                      {% if range_start == range_end %}
+                                        {% assign range_text = current_book | append: "." | append: range_start %}
+                                      {% else %}
+                                        {% assign range_text = current_book | append: "." | append: range_start | append: "-" | append: range_end %}
+                                      {% endif %}
+                                      {% assign range_item = "" | split: "" %}
+                                      {% assign range_item = range_item | push: range_text %}
+                                      {% assign range_item = range_item | push: first_link %}
+                                      {% assign ranges = ranges | push: range_item %}
                                     {% endif %}
-                                  {% endfor %}
+                                    {% assign current_book = book_num %}
+                                    {% assign range_start = chapter_num %}
+                                    {% assign range_end = chapter_num %}
+                                    {% assign first_link = entry[6] %}
+                                  {% else %}
+                                    {% assign expected = range_end | plus: 1 %}
+                                    {% if chapter_num == expected %}
+                                      {% assign range_end = chapter_num %}
+                                    {% else %}
+                                      {% assign range_text = "" %}
+                                      {% if range_start == range_end %}
+                                        {% assign range_text = current_book | append: "." | append: range_start %}
+                                      {% else %}
+                                        {% assign range_text = current_book | append: "." | append: range_start | append: "-" | append: range_end %}
+                                      {% endif %}
+                                      {% assign range_item = "" | split: "" %}
+                                      {% assign range_item = range_item | push: range_text %}
+                                      {% assign range_item = range_item | push: first_link %}
+                                      {% assign ranges = ranges | push: range_item %}
+                                      {% assign range_start = chapter_num %}
+                                      {% assign range_end = chapter_num %}
+                                      {% assign first_link = entry[6] %}
+                                    {% endif %}
+                                  {% endif %}
+                                {% endfor %}
+                                
+                                {% if range_start %}
+                                  {% assign range_text = "" %}
+                                  {% if range_start == range_end %}
+                                    {% assign range_text = current_book | append: "." | append: range_start %}
+                                  {% else %}
+                                    {% assign range_text = current_book | append: "." | append: range_start | append: "-" | append: range_end %}
+                                  {% endif %}
+                                  {% assign range_item = "" | split: "" %}
+                                  {% assign range_item = range_item | push: range_text %}
+                                  {% assign range_item = range_item | push: first_link %}
+                                  {% assign ranges = ranges | push: range_item %}
                                 {% endif %}
-                              {% endif %}
-                            {% endfor %}
-                          </ul>
-                          {% unless sections_found %}
+                                
+                                <li class="section-item">
+                                  <div class="section-reference">
+                                    {{ author_name }} {{ sorted_entries[0][3] }}
+                                    {% for range in ranges %}
+                                      {% if forloop.index > 1 %}, {% endif %}
+                                      <a href="{{ range[1] }}" target="_blank">{{ range[0] }}</a>
+                                    {% endfor %}
+                                  </div>
+                                </li>
+                              {% endfor %}
+                            </ul>
+                          {% else %}
                             <p class="no-sections">No sections tagged with this topic yet</p>
-                          {% endunless %}
+                          {% endif %}
                         </div>
                       {% endfor %}
                     {% endif %}
