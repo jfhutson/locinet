@@ -52,22 +52,22 @@
     {% endif %}
     
     {% comment %}Find topics for this section{% endcomment %}
-    {% assign section_row = site.data.topics | where: "work_id", page.work_id | where: "section_id", child.id | first %}
-    
-    {% if section_row %}
-      {% assign topic_ids = section_row.topic_ids | split: "," %}
-      <br>
-      <small>Topics: 
-        {% for topic_id in topic_ids %}
-          {% assign topic_def = site.data.topics_definitions | where: "topic_id", topic_id | first %}
-          {% if topic_def %}
-            <a href="{{ '/topics.html#' | append: topic_id | relative_url }}">
-              {{ topic_def.topic_name }}
-            </a>
-          {% endif %}
-        {% endfor %}
-      </small>
-    {% endif %}
+{% assign section_assignment = site.data.topics.assignments | where: "section_id", child.id | first %}
+
+{% if section_assignment and section_assignment.topics.size > 0 %}
+  <br>
+  <small>Topics: 
+    {% for topic_id in section_assignment.topics %}
+      {% comment %}Find topic name from hierarchy{% endcomment %}
+      {% assign topic_def = topic_lookup | where: "id", topic_id | first %}
+      {% if topic_def %}
+        <a href="{{ '/topics/#' | append: topic_id | relative_url }}" class="topic-tag">
+          {{ topic_def.name }}
+        </a>
+      {% endif %}
+    {% endfor %}
+  </small>
+{% endif %}
 
   </li>
 {% endfor %}
