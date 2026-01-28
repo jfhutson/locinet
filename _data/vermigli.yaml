@@ -9,7 +9,7 @@ works:
         id: part_1
         number: 1
         title:
-          en: "The First Part"
+          en: "The Knowledge of God by Nature and Scripture"
         children:
           - type: chapter
             id: cp1583_1_1
@@ -177,7 +177,7 @@ works:
         id: part_2
         number: 2
         title:
-          en: "The Second Part"
+          en: "Christ, our Redeemer, under the Law and in the Gospel"
         children:
           - type: chapter
             id: cp1583_2_1
@@ -362,7 +362,7 @@ works:
         id: part_3
         number: 3
         title:
-          en: "The Third Part"
+          en: "The Grace Offered us in Christ and its Fruits"
         children:
           - type: chapter
             id: cp1583_3_1
@@ -536,7 +536,7 @@ works:
         id: part_4
         number: 4
         title:
-          en: "The Fourth Part"
+          en: "The Outward Means of Fellowship with Christ"
         children:
           - type: chapter
             id: cp1583_4_1
