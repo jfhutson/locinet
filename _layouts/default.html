@@ -2,23 +2,68 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{{ page.title }} - {{ site.title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} - {% endif %}A Theological Syntopticon</title>
+  
   <style>
-    body { margin: 2rem auto; line-height: 1.6; }
-    a { color: blue; text-decoration: none; }
-    h1, h2, h3, h4, h5 {
-      margin-top: 0.5em; /* was 1.5em */
-      margin-bottom: 0.25em;
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    h2 + p, h3 + p, h4 + p, h5 + p {
-      margin-top: 0.25em;
+    
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
-    ul { list-style-type: none; padding-left: 0; }
-    li { margin-bottom: 0.5em; }
+    
+    body {
+      font-family: 'Garamond', 'Crimson Text', 'Libre Baskerville', Georgia, serif;
+      color: #3e2723;
+      background-color: #fdfcfa;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    /* Remove default max-width constraints - let pages control their own width */
+    main {
+      width: 100%;
+      min-height: 100vh;
+    }
+    
+    /* Links */
+    a {
+      color: #8b4513;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      color: #6d3410;
+    }
+    
+    /* Headings */
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 400;
+      line-height: 1.2;
+    }
+    
+    /* Utility classes */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
   </style>
 </head>
 <body>
-
   <main>
     {{ content }}
   </main>
