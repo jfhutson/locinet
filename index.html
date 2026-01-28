@@ -1,37 +1,10 @@
 ---
 layout: default
+title: A Theological Syntopticon
 ---
 
-{% comment %} Find the work data {% endcomment %}
-{% assign work_data = nil %}
-{% assign work_file_name = "" %}
-
-{% for data_file in site.data %}
-  {% assign file_name = data_file[0] %}
-  {% assign file_data = data_file[1] %}
-  
-  {% if file_data.works %}
-    {% for work in file_data.works %}
-      {% if work.id == page.work_id %}
-        {% assign work_data = work %}
-        {% assign work_file_name = file_name %}
-      {% endif %}
-    {% endfor %}
-  {% endif %}
-{% endfor %}
-
-{% assign topics_file_name = work_file_name | append: "_topics" %}
-{% assign work_topics = site.data[topics_file_name] %}
-
-{% assign author_info = nil %}
-{% for author in site.data.authors.authors %}
-  {% if author.id == work_data.author %}
-    {% assign author_info = author %}
-  {% endif %}
-{% endfor %}
-
 <style>
-.work-page-container {
+.topics-page {
   display: flex;
   max-width: 1800px;
   margin: 0 auto;
@@ -39,12 +12,12 @@ layout: default
   font-family: 'Garamond', 'Crimson Text', 'Libre Baskerville', Georgia, serif;
 }
 
-.work-toc-sidebar {
+.toc-sidebar {
   width: 280px;
   flex-shrink: 0;
 }
 
-.work-toc-sticky {
+.toc-sticky {
   position: sticky;
   top: 1rem;
   max-height: calc(100vh - 2rem);
@@ -78,7 +51,7 @@ layout: default
   color: #faf8f3;
 }
 
-.work-toc-title {
+.toc-title {
   font-size: 1.125rem;
   font-weight: 700;
   color: #3e2723;
@@ -89,98 +62,118 @@ layout: default
   letter-spacing: 0.05em;
 }
 
-.sidebar-nav-links {
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #8b7355;
-}
-
-.sidebar-nav-link {
-  display: block;
-  color: #8b4513;
-  text-decoration: none;
-  font-size: 0.9375rem;
-  padding: 0.375rem 0;
-  border-bottom: 1px dotted #8b4513;
-  transition: color 0.2s;
-}
-
-.sidebar-nav-link:hover {
-  color: #6d3410;
-  border-bottom-style: solid;
-}
-
-.work-toc-list {
+.toc-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.work-toc-item {
-  margin-bottom: 0.5rem;
+.toc-item-1 {
+  margin-bottom: 0.75rem;
 }
 
-.work-toc-item a {
+.toc-item-1-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.toc-item-1-content a {
+  color: #3e2723;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition: color 0.2s;
+  font-variant: small-caps;
+  flex: 1;
+}
+
+.toc-item-1-content:hover a {
+  color: #8b4513;
+}
+
+.toc-expand-btn {
+  cursor: pointer;
+  user-select: none;
+  width: 1.2em;
+  text-align: center;
+  color: #8b7355;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.toc-list-2 {
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 0 1.7em;
+  display: none;
+}
+
+.toc-list-2.expanded {
+  display: block;
+}
+
+.toc-item-2 {
+  margin-bottom: 0.25rem;
+}
+
+.toc-item-2 a {
   display: block;
   color: #5d4037;
   text-decoration: none;
   font-size: 0.875rem;
-  padding: 0.25rem 0;
+  padding: 0.125rem 0;
   transition: color 0.2s;
-  line-height: 1.4;
 }
 
-.work-toc-item a:hover {
+.toc-item-2 a:hover {
   color: #8b4513;
 }
 
-.work-page {
+.topics-container {
   flex: 1;
   min-width: 0;
   padding: 2rem 0;
 }
 
-.work-header {
-  margin-bottom: 3rem;
-  padding-bottom: 1.5rem;
+.page-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
   border-bottom: 3px double #8b7355;
 }
 
-.work-title-line {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.75rem;
-}
-
-.work-title {
+.page-header h1 {
   font-size: 2.5rem;
   font-weight: 400;
   color: #3e2723;
-  margin: 0;
+  margin: 0 0 0.5rem 0;
+  font-variant: small-caps;
+  letter-spacing: 0.03em;
+}
+
+.page-header p {
+  color: #5d4037;
+  font-size: 1rem;
+  margin: 0 0 0.75rem 0;
   font-style: italic;
 }
 
-.work-year {
-  font-size: 1.5rem;
-  color: #6d5d4b;
-  margin: 0;
-}
-
-.work-author {
-  font-size: 1.5rem;
-  color: #5d4037;
-  margin: 0 0 0.5rem 0;
+.works-index-link {
+  display: inline-block;
+  color: #8b4513;
+  text-decoration: none;
+  font-size: 0.9375rem;
+  border-bottom: 1px dotted #8b4513;
   font-variant: small-caps;
-  letter-spacing: 0.02em;
 }
 
-.work-structure {
-  margin-top: 2rem;
+.works-index-link:hover {
+  color: #6d3410;
+  border-bottom-style: solid;
 }
 
-.structure-item {
+.topic-level-1 {
   margin-bottom: 2rem;
   background: #faf8f3;
   border: 2px solid #8b7355;
@@ -189,287 +182,305 @@ layout: default
   box-shadow: 2px 2px 8px rgba(80, 60, 40, 0.1);
 }
 
-.structure-header {
+.topic-level-2 {
+  margin: 0 0 1rem 0;
+  padding: 0 0 1rem 0;
+  border-bottom: 1px solid #d7ccc8;
+}
+
+.topic-level-2:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.topic-level-3 {
+  margin: 0 0 0.75rem 1.5rem;
+}
+
+.topic-level-4 {
+  margin: 0 0 0.5rem 1.5rem;
+}
+
+.topic-header {
   padding: 1rem 1.5rem;
   background: linear-gradient(to bottom, #8b7355 0%, #6d5d4b 100%);
   color: #faf8f3;
   border-bottom: 2px solid #5d4037;
 }
 
-.structure-title {
-  font-size: 1.25rem;
+.topic-header-2 {
+  padding: 0.75rem 1.5rem;
+  background: #f5f1e8;
+  border-left: 4px solid #8b7355;
+}
+
+.topic-header-3 {
+  padding: 0.5rem 1rem;
+  background: #faf8f3;
+  border-left: 3px solid #a1887f;
+  border-radius: 2px;
+}
+
+.topic-header-4 {
+  padding: 0.4rem 0.75rem;
+  background: #fdfcfa;
+  border-left: 2px solid #bcaaa4;
+  border-radius: 2px;
+}
+
+.topic-title-line {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.topic-name {
   font-weight: 600;
   margin: 0;
+}
+
+.topic-level-1 .topic-name {
+  font-size: 1.375rem;
   font-variant: small-caps;
   letter-spacing: 0.02em;
 }
 
-.structure-content {
+.topic-level-2 .topic-name {
+  font-size: 1.125rem;
+  color: #3e2723;
+  font-variant: small-caps;
+}
+
+.topic-level-3 .topic-name {
+  font-size: 1rem;
+  color: #4e342e;
+}
+
+.topic-level-4 .topic-name {
+  font-size: 0.9375rem;
+  color: #5d4037;
+}
+
+.topic-description {
+  margin: 0;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.topic-level-1 .topic-description {
+  font-size: 0.9375rem;
+  opacity: 0.95;
+}
+
+.topic-level-2 .topic-description {
+  font-size: 0.875rem;
+  color: #5d4037;
+}
+
+.topic-level-3 .topic-description,
+.topic-level-4 .topic-description {
+  font-size: 0.8125rem;
+  color: #6d5d4b;
+}
+
+.topic-content {
   padding: 1rem 1.5rem;
 }
 
-.section-list {
-  list-style: none;
-  padding: 0;
+.sections-display {
+  margin: 0.5rem 0 0 0;
+  padding: 0.5rem;
+  background: #f5f1e8;
+  border-radius: 2px;
+  border-left: 3px solid #8b7355;
+  line-height: 1.6;
+}
+
+.section-reference {
+  color: #3e2723;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.section-reference .author-name {
+  font-variant: small-caps;
+}
+
+.section-reference .work-title {
+  font-style: italic;
+}
+
+.section-separator {
+  color: #8b7355;
+  margin: 0 0.5rem;
+}
+
+.no-sections {
+  color: #8d6e63;
+  font-style: italic;
+  font-size: 0.8125rem;
+  padding: 0.25rem 0;
   margin: 0;
 }
 
-.section-item {
-  margin-bottom: 1.25rem;
-  padding: 0.75rem;
-  background: #f5f1e8;
-  border-left: 3px solid #8b7355;
-  border-radius: 2px;
-}
-
-.section-item:hover {
-  background: #ebe7dc;
-}
-
-.section-header {
-  margin-bottom: 0.5rem;
-}
-
-.section-number-title {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.section-number {
-  font-weight: 700;
-  color: #3e2723;
-  font-variant: small-caps;
-  flex-shrink: 0;
-}
-
-.section-title {
-  color: #3e2723;
-  font-weight: 500;
-  flex: 1;
-}
-
-.section-links {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.section-link {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  background: #8b7355;
-  color: #faf8f3;
+.section-reference a {
+  color: #8b4513;
   text-decoration: none;
-  border-radius: 2px;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  transition: background 0.2s;
+  transition: color 0.2s;
+  border-bottom: 1px dotted #8b4513;
 }
 
-.section-link:hover {
-  background: #6d5d4b;
-}
-
-.section-topics {
-  margin-top: 0.5rem;
-  padding-top: 0.5rem;
-  border-top: 1px solid #d7ccc8;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.topics-label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #8d6e63;
-  font-weight: 600;
-  padding-top: 0.25rem;
-}
-
-.topic-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.375rem;
-  flex: 1;
-}
-
-.topic-tag {
-  display: inline-block;
-  padding: 0.25rem 0.5rem;
-  background: #fdfcfa;
-  border: 1px solid #bcaaa4;
-  border-radius: 2px;
-  font-size: 0.75rem;
-  color: #5d4037;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-
-.topic-tag:hover {
-  background: #bcaaa4;
-  color: #faf8f3;
+.section-reference a:hover {
+  color: #6d3410;
+  border-bottom-style: solid;
 }
 
 @media (max-width: 768px) {
-  .work-page-container {
+  .topics-page {
     flex-direction: column;
   }
   
-  .work-toc-sidebar {
+  .toc-sidebar {
     width: 100%;
   }
   
-  .work-toc-sticky {
+  .toc-sticky {
     position: static;
     max-height: none;
   }
 }
 </style>
 
-<div class="work-page-container">
-  <aside class="work-toc-sidebar">
-    <nav class="work-toc-sticky">
+<div class="topics-page">
+  <aside class="toc-sidebar">
+    <nav class="toc-sticky">
       <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="back-to-top">↑ Back to Top</button>
       
-      <div class="sidebar-nav-links">
-        <a href="{{ '/' | relative_url }}" class="sidebar-nav-link">← Syntopticon</a>
-        <a href="{{ '/works-index.html' | relative_url }}" class="sidebar-nav-link">Index of Works</a>
-      </div>
-      
-      <h2 class="work-toc-title">Contents</h2>
-      <ul class="work-toc-list">
-        {% for structure_item in work_data.structure %}
-          <li class="work-toc-item">
-            <a href="#structure-{{ structure_item.id }}">
-              {% if structure_item.type == "book" %}
-                Book {{ structure_item.number }}.
-              {% elsif structure_item.type == "part" %}
-                Part {{ structure_item.number }}.
+      <h2 class="toc-title">Contents</h2>
+      <ul class="toc-list">
+        {% for topic1 in site.data.topics_definitions.topics %}
+          <li class="toc-item-1">
+            <div class="toc-item-1-content" onclick="toggleTocSection(this)">
+              {% if topic1.children.size > 0 %}
+                <span class="toc-expand-btn">▸</span>
               {% else %}
-                {{ structure_item.number }}.
+                <span class="toc-expand-btn" style="visibility: hidden;">▸</span>
               {% endif %}
-              {{ structure_item.title.en }}
-            </a>
+              <a href="#topic-{{ topic1.id }}" onclick="event.stopPropagation();">{{ topic1.name }}</a>
+            </div>
+            {% if topic1.children %}
+              <ul class="toc-list-2">
+                {% for topic2 in topic1.children %}
+                  <li class="toc-item-2">
+                    <a href="#topic-{{ topic2.id }}">{{ topic2.name }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
           </li>
         {% endfor %}
       </ul>
     </nav>
   </aside>
 
-  <div class="work-page">
-    <div class="work-header">
-      <div class="work-title-line">
-        <h1 class="work-title">{{ work_data.title }}</h1>
-        <span class="work-year">({{ work_data.year }})</span>
-      </div>
-      <div class="work-author">{{ author_info.name.en }}</div>
+  <div class="topics-container">
+    <div class="page-header">
+      <h1>A Theological Syntopticon</h1>
+      <p>Browse theological topics and their appearances in classic works</p>
+      <a href="{{ '/works-index.html' | relative_url }}" class="works-index-link">View Index of Works →</a>
     </div>
 
-    <div class="work-structure">
-      {% for structure_item in work_data.structure %}
-        <div class="structure-item" id="structure-{{ structure_item.id }}">
-          <div class="structure-header">
-            <h2 class="structure-title">
-              {{ structure_item.title.en }}
-            </h2>
-          </div>
-          
-          <div class="structure-content">
-            <ul class="section-list">
-              {% for child in structure_item.children %}
-                <li class="section-item">
-                  <div class="section-header">
-                    <div class="section-number-title">
-                      <span class="section-number">
-                        {% if structure_item.type == "book" %}
-                          Book {{ structure_item.number }}, Chapter {{ child.number }}
-                        {% elsif structure_item.type == "part" %}
-                          Part {{ structure_item.number }}, Question {{ child.number }}
-                        {% else %}
-                          {{ structure_item.number }}.{{ child.number }}
-                        {% endif %}
-                      </span>
-                      <span class="section-title">{{ child.title.en }}</span>
-                    </div>
-                    
-                    {% if child.links %}
-                      <div class="section-links">
-                        {% for link in child.links %}
-                          <a href="{{ link.url }}" class="section-link" target="_blank">
-                            {{ link.site }} ({{ link.language | upcase }})
-                          </a>
-                        {% endfor %}
-                      </div>
-                    {% endif %}
-                  </div>
-                  
-                  {% if work_topics %}
-                    {% assign section_topics = "" | split: "" %}
-                    {% for assignment in work_topics.assignments %}
-                      {% if assignment.section_id == child.id %}
-                        {% assign section_topics = assignment.topics %}
-                      {% endif %}
-                    {% endfor %}
-                    
-                    {% if section_topics.size > 0 %}
-                      <div class="section-topics">
-                        <div class="topics-label">Topics:</div>
-                        <div class="topic-tags">
-                          {% for topic_id in section_topics %}
-                            {% assign topic_found = false %}
-                            {% for topic1 in site.data.topics_definitions.topics %}
-                              {% if topic1.id == topic_id %}
-                                <a href="{{ '/' | relative_url }}#topic-{{ topic_id }}" class="topic-tag">{{ topic1.name }}</a>
-                                {% assign topic_found = true %}
-                              {% endif %}
-                              {% unless topic_found %}
-                                {% if topic1.children %}
-                                  {% for topic2 in topic1.children %}
-                                    {% if topic2.id == topic_id %}
-                                      <a href="{{ '/' | relative_url }}#topic-{{ topic_id }}" class="topic-tag">{{ topic2.name }}</a>
-                                      {% assign topic_found = true %}
-                                    {% endif %}
-                                    {% unless topic_found %}
-                                      {% if topic2.children %}
-                                        {% for topic3 in topic2.children %}
-                                          {% if topic3.id == topic_id %}
-                                            <a href="{{ '/' | relative_url }}#topic-{{ topic_id }}" class="topic-tag">{{ topic3.name }}</a>
-                                            {% assign topic_found = true %}
-                                          {% endif %}
-                                          {% unless topic_found %}
-                                            {% if topic3.children %}
-                                              {% for topic4 in topic3.children %}
-                                                {% if topic4.id == topic_id %}
-                                                  <a href="{{ '/' | relative_url }}#topic-{{ topic_id }}" class="topic-tag">{{ topic4.name }}</a>
-                                                  {% assign topic_found = true %}
-                                                {% endif %}
-                                              {% endfor %}
-                                            {% endif %}
-                                          {% endunless %}
-                                        {% endfor %}
-                                      {% endif %}
-                                    {% endunless %}
-                                  {% endfor %}
-                                {% endif %}
-                              {% endunless %}
-                            {% endfor %}
-                          {% endfor %}
-                        </div>
-                      </div>
-                    {% endif %}
-                  {% endif %}
-                </li>
-              {% endfor %}
-            </ul>
+    {% assign topics_data = site.data.topics_definitions.topics %}
+
+    {% comment %} Display Level 1 Topics {% endcomment %}
+    {% for topic1 in topics_data %}
+      <div class="topic-level-1" id="topic-{{ topic1.id }}">
+        <div class="topic-header">
+          <div class="topic-title-line">
+            <h2 class="topic-name">{{ topic1.name }}</h2>
+            <span class="topic-description">{{ topic1.description }}</span>
           </div>
         </div>
-      {% endfor %}
-    </div>
+        
+        <div class="topic-content">
+          <div class="sections-display">
+            {% include topic_sections.html topic_id=topic1.id %}
+          </div>
+          
+          {% comment %} Display Level 2 Topics {% endcomment %}
+          {% if topic1.children %}
+            {% for topic2 in topic1.children %}
+              <div class="topic-level-2" id="topic-{{ topic2.id }}">
+                <div class="topic-header-2">
+                  <div class="topic-title-line">
+                    <h3 class="topic-name">{{ topic2.name }}</h3>
+                    <span class="topic-description">{{ topic2.description }}</span>
+                  </div>
+                </div>
+                
+                <div class="sections-display">
+                  {% include topic_sections.html topic_id=topic2.id %}
+                </div>
+                
+                {% comment %} Display Level 3 Topics {% endcomment %}
+                {% if topic2.children %}
+                  {% for topic3 in topic2.children %}
+                    <div class="topic-level-3" id="topic-{{ topic3.id }}">
+                      <div class="topic-header-3">
+                        <div class="topic-title-line">
+                          <h4 class="topic-name">{{ topic3.name }}</h4>
+                          <span class="topic-description">{{ topic3.description }}</span>
+                        </div>
+                      </div>
+                      
+                      <div class="sections-display">
+                        {% include topic_sections.html topic_id=topic3.id %}
+                      </div>
+                      
+                      {% comment %} Display Level 4 Topics {% endcomment %}
+                      {% if topic3.children %}
+                        {% for topic4 in topic3.children %}
+                          <div class="topic-level-4" id="topic-{{ topic4.id }}">
+                            <div class="topic-header-4">
+                              <div class="topic-title-line">
+                                <h5 class="topic-name">{{ topic4.name }}</h5>
+                                <span class="topic-description">{{ topic4.description }}</span>
+                              </div>
+                            </div>
+                            
+                            <div class="sections-display">
+                              {% include topic_sections.html topic_id=topic4.id %}
+                            </div>
+                          </div>
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+                  {% endfor %}
+                {% endif %}
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
   </div>
 </div>
+
+<script>
+function toggleTocSection(element) {
+  const btn = element.querySelector('.toc-expand-btn');
+  const list = element.parentElement.querySelector('.toc-list-2');
+  
+  if (list) {
+    if (list.classList.contains('expanded')) {
+      list.classList.remove('expanded');
+      btn.textContent = '▸';
+    } else {
+      list.classList.add('expanded');
+      btn.textContent = '▾';
+    }
+  }
+}
+</script>
