@@ -6,14 +6,14 @@ title: A Theological Syntopticon
 <style>
 .topics-page {
   display: flex;
-  max-width: 1600px;
+  max-width: 1800px;
   margin: 0 auto;
   gap: 2rem;
   font-family: 'Garamond', 'Crimson Text', 'Libre Baskerville', Georgia, serif;
 }
 
 .toc-sidebar {
-  width: 260px;
+  width: 280px;
   flex-shrink: 0;
 }
 
@@ -50,35 +50,41 @@ title: A Theological Syntopticon
   margin-bottom: 0.75rem;
 }
 
-.toc-item-1 > a {
-  display: block;
+.toc-item-1-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.toc-item-1-content a {
   color: #3e2723;
   text-decoration: none;
   font-weight: 600;
   font-size: 0.9375rem;
-  padding: 0.25rem 0;
   transition: color 0.2s;
   font-variant: small-caps;
+  flex: 1;
 }
 
-.toc-item-1 > a:hover {
+.toc-item-1-content:hover a {
   color: #8b4513;
 }
 
 .toc-expand-btn {
   cursor: pointer;
   user-select: none;
-  display: inline-block;
   width: 1.2em;
   text-align: center;
   color: #8b7355;
   font-weight: bold;
+  flex-shrink: 0;
 }
 
 .toc-list-2 {
   list-style: none;
   padding: 0;
-  margin: 0.25rem 0 0 1.2em;
+  margin: 0.25rem 0 0 1.7em;
   display: none;
 }
 
@@ -278,14 +284,10 @@ title: A Theological Syntopticon
 
 .section-reference .author-name {
   font-variant: small-caps;
-  position: relative;
-  cursor: help;
 }
 
 .section-reference .work-title {
   font-style: italic;
-  position: relative;
-  cursor: help;
 }
 
 .section-separator {
@@ -336,10 +338,14 @@ title: A Theological Syntopticon
       <ul class="toc-list">
         {% for topic1 in site.data.topics_definitions.topics %}
           <li class="toc-item-1">
-            {% if topic1.children.size > 0 %}
-              <span class="toc-expand-btn" onclick="toggleTocSection(this)">▸</span>
-            {% endif %}
-            <a href="#topic-{{ topic1.id }}">{{ topic1.name }}</a>
+            <div class="toc-item-1-content" onclick="toggleTocSection(this)">
+              {% if topic1.children.size > 0 %}
+                <span class="toc-expand-btn">▸</span>
+              {% else %}
+                <span class="toc-expand-btn" style="visibility: hidden;">▸</span>
+              {% endif %}
+              <a href="#topic-{{ topic1.id }}" onclick="event.stopPropagation();">{{ topic1.name }}</a>
+            </div>
             {% if topic1.children %}
               <ul class="toc-list-2">
                 {% for topic2 in topic1.children %}
@@ -439,14 +445,18 @@ title: A Theological Syntopticon
 </div>
 
 <script>
-function toggleTocSection(btn) {
-  const list = btn.parentElement.querySelector('.toc-list-2');
-  if (list.classList.contains('expanded')) {
-    list.classList.remove('expanded');
-    btn.textContent = '▸';
-  } else {
-    list.classList.add('expanded');
-    btn.textContent = '▾';
+function toggleTocSection(element) {
+  const btn = element.querySelector('.toc-expand-btn');
+  const list = element.parentElement.querySelector('.toc-list-2');
+  
+  if (list) {
+    if (list.classList.contains('expanded')) {
+      list.classList.remove('expanded');
+      btn.textContent = '▸';
+    } else {
+      list.classList.add('expanded');
+      btn.textContent = '▾';
+    }
   }
 }
 </script>
