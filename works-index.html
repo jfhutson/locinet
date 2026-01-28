@@ -5,7 +5,7 @@ title: Index of Works
 
 <style>
 .works-index-page {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
   font-family: 'Garamond', 'Crimson Text', 'Libre Baskerville', Georgia, serif;
@@ -54,12 +54,16 @@ title: Index of Works
 }
 
 .work-entry {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
+  margin-bottom: 1rem;
+  padding: 1rem 1.5rem;
   background: #faf8f3;
   border: 2px solid #8b7355;
   border-radius: 2px;
   box-shadow: 2px 2px 8px rgba(80, 60, 40, 0.1);
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .work-entry:hover {
@@ -67,22 +71,23 @@ title: Index of Works
 }
 
 .work-year-display {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 700;
   color: #8b7355;
-  margin-bottom: 0.5rem;
   font-variant: small-caps;
+  flex-shrink: 0;
+  min-width: 3.5rem;
 }
 
 .work-title-link {
-  font-size: 1.75rem;
+  font-size: 1.25rem;
   font-weight: 400;
   color: #3e2723;
-  margin: 0 0 0.5rem 0;
   font-style: italic;
   text-decoration: none;
-  display: block;
   transition: color 0.2s;
+  flex: 1;
+  min-width: 200px;
 }
 
 .work-title-link:hover {
@@ -90,18 +95,10 @@ title: Index of Works
 }
 
 .work-author-display {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   color: #5d4037;
-  margin: 0;
   font-variant: small-caps;
   letter-spacing: 0.02em;
-}
-
-.work-tradition {
-  font-size: 0.9375rem;
-  color: #8d6e63;
-  font-style: italic;
-  margin-top: 0.25rem;
 }
 </style>
 
@@ -138,7 +135,7 @@ title: Index of Works
         {% endfor %}
         
         {% comment %} Create work entry {% endcomment %}
-        {% capture work_entry %}{{ work.year }}|{{ work.title }}|{{ author_info.name.en }}|{{ author_info.tradition }}|{{ work_url }}{% endcapture %}
+        {% capture work_entry %}{{ work.year }}|{{ work.title }}|{{ author_info.name.en }}|{{ work_url }}{% endcapture %}
         {% assign all_works = all_works | push: work_entry %}
       {% endfor %}
     {% endif %}
@@ -153,20 +150,16 @@ title: Index of Works
       {% assign year = parts[0] %}
       {% assign title = parts[1] %}
       {% assign author = parts[2] %}
-      {% assign tradition = parts[3] %}
-      {% assign url = parts[4] %}
+      {% assign url = parts[3] %}
       
       <li class="work-entry">
-        <div class="work-year-display">{{ year }}</div>
+        <span class="work-year-display">{{ year }}</span>
         {% if url != "" %}
           <a href="{{ url | relative_url }}" class="work-title-link">{{ title }}</a>
         {% else %}
-          <div class="work-title-link" style="cursor: default;">{{ title }}</div>
+          <span class="work-title-link" style="cursor: default;">{{ title }}</span>
         {% endif %}
-        <div class="work-author-display">{{ author }}</div>
-        {% if tradition != "" %}
-          <div class="work-tradition">{{ tradition }}</div>
-        {% endif %}
+        <span class="work-author-display">{{ author }}</span>
       </li>
     {% endfor %}
   </ul>
