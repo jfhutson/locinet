@@ -106,38 +106,37 @@ title: Index of Works
   <div class="works-index-header">
     <h1>Index of Works</h1>
     <p>Classic theological works ordered chronologically</p>
-    <a href="{{ '/' | relative_url }}" class="back-link">← Back to Topics Index</a>
+    <a href="{{ '/' | relative_url }}" class="back-link">← Syntopticon</a>
   </div>
 
-  {% comment %} Collect all works from all data files {% endcomment %}
+  {% comment %} Collect all works from works/ folder {% endcomment %}
   {% assign all_works = "" | split: "" %}
   
   {% for data_file in site.data %}
-    {% assign file_name = data_file[0] %}
-    {% assign file_data = data_file[1] %}
+    {% assign file_path = data_file[0] %}
     
-    {% if file_data.works %}
-      {% for work in file_data.works %}
-        {% comment %} Get author info {% endcomment %}
-        {% assign author_info = nil %}
-        {% for author in site.data.authors.authors %}
-          {% if author.id == work.author %}
-            {% assign author_info = author %}
-          {% endif %}
-        {% endfor %}
-        
-        {% comment %} Find work page URL {% endcomment %}
-        {% assign work_url = "" %}
-        {% for work_page in site.works %}
-          {% if work_page.work_id == work.id %}
-            {% assign work_url = work_page.url %}
-          {% endif %}
-        {% endfor %}
-        
-        {% comment %} Create work entry {% endcomment %}
-        {% capture work_entry %}{{ work.year }}|{{ work.title }}|{{ author_info.name.en }}|{{ work_url }}{% endcapture %}
-        {% assign all_works = all_works | push: work_entry %}
+    {% if file_path contains "works/" %}
+      {% assign work = data_file[1] %}
+      
+      {% comment %} Get author info {% endcomment %}
+      {% assign author_info = nil %}
+      {% for author in site.data.authors.authors %}
+        {% if author.id == work.author %}
+          {% assign author_info = author %}
+        {% endif %}
       {% endfor %}
+      
+      {% comment %} Find work page URL {% endcomment %}
+      {% assign work_url = "" %}
+      {% for work_page in site.works %}
+        {% if work_page.work_id == work.id %}
+          {% assign work_url = work_page.url %}
+        {% endif %}
+      {% endfor %}
+      
+      {% comment %} Create work entry {% endcomment %}
+      {% capture work_entry %}{{ work.year }}|{{ work.title }}|{{ author_info.name.en }}|{{ work_url }}{% endcapture %}
+      {% assign all_works = all_works | push: work_entry %}
     {% endif %}
   {% endfor %}
   

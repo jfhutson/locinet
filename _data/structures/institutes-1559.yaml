@@ -1,0 +1,351 @@
+work: institutes-1559
+structure:
+  levels:
+    - id: book
+      label:
+        en: Book
+        la: Liber
+    - id: chapter
+      label:
+        en: Chapter
+        la: Caput
+  nodes:
+    # Book 1
+    - id: inst1559_1
+      level: book
+      ordinal: 1
+    - id: inst1559_1_1
+      level: chapter
+      parent: inst1559_1
+      ordinal: 1
+    - id: inst1559_1_2
+      level: chapter
+      parent: inst1559_1
+      ordinal: 2
+    - id: inst1559_1_3
+      level: chapter
+      parent: inst1559_1
+      ordinal: 3
+    - id: inst1559_1_4
+      level: chapter
+      parent: inst1559_1
+      ordinal: 4
+    - id: inst1559_1_5
+      level: chapter
+      parent: inst1559_1
+      ordinal: 5
+    - id: inst1559_1_6
+      level: chapter
+      parent: inst1559_1
+      ordinal: 6
+    - id: inst1559_1_7
+      level: chapter
+      parent: inst1559_1
+      ordinal: 7
+    - id: inst1559_1_8
+      level: chapter
+      parent: inst1559_1
+      ordinal: 8
+    - id: inst1559_1_9
+      level: chapter
+      parent: inst1559_1
+      ordinal: 9
+    - id: inst1559_1_10
+      level: chapter
+      parent: inst1559_1
+      ordinal: 10
+    - id: inst1559_1_11
+      level: chapter
+      parent: inst1559_1
+      ordinal: 11
+    - id: inst1559_1_12
+      level: chapter
+      parent: inst1559_1
+      ordinal: 12
+    - id: inst1559_1_13
+      level: chapter
+      parent: inst1559_1
+      ordinal: 13
+    - id: inst1559_1_14
+      level: chapter
+      parent: inst1559_1
+      ordinal: 14
+    - id: inst1559_1_15
+      level: chapter
+      parent: inst1559_1
+      ordinal: 15
+    - id: inst1559_1_16
+      level: chapter
+      parent: inst1559_1
+      ordinal: 16
+    - id: inst1559_1_17
+      level: chapter
+      parent: inst1559_1
+      ordinal: 17
+    - id: inst1559_1_18
+      level: chapter
+      parent: inst1559_1
+      ordinal: 18
+    
+    # Book 2
+    - id: inst1559_2
+      level: book
+      ordinal: 2
+    - id: inst1559_2_1
+      level: chapter
+      parent: inst1559_2
+      ordinal: 1
+    - id: inst1559_2_2
+      level: chapter
+      parent: inst1559_2
+      ordinal: 2
+    - id: inst1559_2_3
+      level: chapter
+      parent: inst1559_2
+      ordinal: 3
+    - id: inst1559_2_4
+      level: chapter
+      parent: inst1559_2
+      ordinal: 4
+    - id: inst1559_2_5
+      level: chapter
+      parent: inst1559_2
+      ordinal: 5
+    - id: inst1559_2_6
+      level: chapter
+      parent: inst1559_2
+      ordinal: 6
+    - id: inst1559_2_7
+      level: chapter
+      parent: inst1559_2
+      ordinal: 7
+    - id: inst1559_2_8
+      level: chapter
+      parent: inst1559_2
+      ordinal: 8
+    - id: inst1559_2_9
+      level: chapter
+      parent: inst1559_2
+      ordinal: 9
+    - id: inst1559_2_10
+      level: chapter
+      parent: inst1559_2
+      ordinal: 10
+    - id: inst1559_2_11
+      level: chapter
+      parent: inst1559_2
+      ordinal: 11
+    - id: inst1559_2_12
+      level: chapter
+      parent: inst1559_2
+      ordinal: 12
+    - id: inst1559_2_13
+      level: chapter
+      parent: inst1559_2
+      ordinal: 13
+    - id: inst1559_2_14
+      level: chapter
+      parent: inst1559_2
+      ordinal: 14
+    - id: inst1559_2_15
+      level: chapter
+      parent: inst1559_2
+      ordinal: 15
+    - id: inst1559_2_16
+      level: chapter
+      parent: inst1559_2
+      ordinal: 16
+    - id: inst1559_2_17
+      level: chapter
+      parent: inst1559_2
+      ordinal: 17
+    
+    # Book 3
+    - id: inst1559_3
+      level: book
+      ordinal: 3
+    - id: inst1559_3_1
+      level: chapter
+      parent: inst1559_3
+      ordinal: 1
+    - id: inst1559_3_2
+      level: chapter
+      parent: inst1559_3
+      ordinal: 2
+    - id: inst1559_3_3
+      level: chapter
+      parent: inst1559_3
+      ordinal: 3
+    - id: inst1559_3_4
+      level: chapter
+      parent: inst1559_3
+      ordinal: 4
+    - id: inst1559_3_5
+      level: chapter
+      parent: inst1559_3
+      ordinal: 5
+    - id: inst1559_3_6
+      level: chapter
+      parent: inst1559_3
+      ordinal: 6
+    - id: inst1559_3_7
+      level: chapter
+      parent: inst1559_3
+      ordinal: 7
+    - id: inst1559_3_8
+      level: chapter
+      parent: inst1559_3
+      ordinal: 8
+    - id: inst1559_3_9
+      level: chapter
+      parent: inst1559_3
+      ordinal: 9
+    - id: inst1559_3_10
+      level: chapter
+      parent: inst1559_3
+      ordinal: 10
+    - id: inst1559_3_11
+      level: chapter
+      parent: inst1559_3
+      ordinal: 11
+    - id: inst1559_3_12
+      level: chapter
+      parent: inst1559_3
+      ordinal: 12
+    - id: inst1559_3_13
+      level: chapter
+      parent: inst1559_3
+      ordinal: 13
+    - id: inst1559_3_14
+      level: chapter
+      parent: inst1559_3
+      ordinal: 14
+    - id: inst1559_3_15
+      level: chapter
+      parent: inst1559_3
+      ordinal: 15
+    - id: inst1559_3_16
+      level: chapter
+      parent: inst1559_3
+      ordinal: 16
+    - id: inst1559_3_17
+      level: chapter
+      parent: inst1559_3
+      ordinal: 17
+    - id: inst1559_3_18
+      level: chapter
+      parent: inst1559_3
+      ordinal: 18
+    - id: inst1559_3_19
+      level: chapter
+      parent: inst1559_3
+      ordinal: 19
+    - id: inst1559_3_20
+      level: chapter
+      parent: inst1559_3
+      ordinal: 20
+    - id: inst1559_3_21
+      level: chapter
+      parent: inst1559_3
+      ordinal: 21
+    - id: inst1559_3_22
+      level: chapter
+      parent: inst1559_3
+      ordinal: 22
+    - id: inst1559_3_23
+      level: chapter
+      parent: inst1559_3
+      ordinal: 23
+    - id: inst1559_3_24
+      level: chapter
+      parent: inst1559_3
+      ordinal: 24
+    - id: inst1559_3_25
+      level: chapter
+      parent: inst1559_3
+      ordinal: 25
+    
+    # Book 4
+    - id: inst1559_4
+      level: book
+      ordinal: 4
+    - id: inst1559_4_1
+      level: chapter
+      parent: inst1559_4
+      ordinal: 1
+    - id: inst1559_4_2
+      level: chapter
+      parent: inst1559_4
+      ordinal: 2
+    - id: inst1559_4_3
+      level: chapter
+      parent: inst1559_4
+      ordinal: 3
+    - id: inst1559_4_4
+      level: chapter
+      parent: inst1559_4
+      ordinal: 4
+    - id: inst1559_4_5
+      level: chapter
+      parent: inst1559_4
+      ordinal: 5
+    - id: inst1559_4_6
+      level: chapter
+      parent: inst1559_4
+      ordinal: 6
+    - id: inst1559_4_7
+      level: chapter
+      parent: inst1559_4
+      ordinal: 7
+    - id: inst1559_4_8
+      level: chapter
+      parent: inst1559_4
+      ordinal: 8
+    - id: inst1559_4_9
+      level: chapter
+      parent: inst1559_4
+      ordinal: 9
+    - id: inst1559_4_10
+      level: chapter
+      parent: inst1559_4
+      ordinal: 10
+    - id: inst1559_4_11
+      level: chapter
+      parent: inst1559_4
+      ordinal: 11
+    - id: inst1559_4_12
+      level: chapter
+      parent: inst1559_4
+      ordinal: 12
+    - id: inst1559_4_13
+      level: chapter
+      parent: inst1559_4
+      ordinal: 13
+    - id: inst1559_4_14
+      level: chapter
+      parent: inst1559_4
+      ordinal: 14
+    - id: inst1559_4_15
+      level: chapter
+      parent: inst1559_4
+      ordinal: 15
+    - id: inst1559_4_16
+      level: chapter
+      parent: inst1559_4
+      ordinal: 16
+    - id: inst1559_4_17
+      level: chapter
+      parent: inst1559_4
+      ordinal: 17
+    - id: inst1559_4_18
+      level: chapter
+      parent: inst1559_4
+      ordinal: 18
+    - id: inst1559_4_19
+      level: chapter
+      parent: inst1559_4
+      ordinal: 19
+    - id: inst1559_4_20
+      level: chapter
+      parent: inst1559_4
+      ordinal: 20
