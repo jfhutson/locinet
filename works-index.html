@@ -5,7 +5,7 @@ title: Index of Works
 
 <style>
 .works-index-page {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 2rem;
   font-family: 'Garamond', 'Crimson Text', 'Libre Baskerville', Georgia, serif;
@@ -60,10 +60,10 @@ title: Index of Works
   border: 2px solid #8b7355;
   border-radius: 2px;
   box-shadow: 2px 2px 8px rgba(80, 60, 40, 0.1);
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.5rem;
   align-items: baseline;
-  gap: 1rem;
-  flex-wrap: wrap;
 }
 
 .work-entry:hover {
@@ -75,8 +75,6 @@ title: Index of Works
   font-weight: 700;
   color: #8b7355;
   font-variant: small-caps;
-  flex-shrink: 0;
-  min-width: 3.5rem;
 }
 
 .work-title-link {
@@ -86,8 +84,6 @@ title: Index of Works
   font-style: italic;
   text-decoration: none;
   transition: color 0.2s;
-  flex: 1;
-  min-width: 200px;
 }
 
 .work-title-link:hover {
@@ -99,6 +95,18 @@ title: Index of Works
   color: #5d4037;
   font-variant: small-caps;
   letter-spacing: 0.02em;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .work-entry {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .work-author-display {
+    text-align: left;
+  }
 }
 </style>
 
@@ -109,15 +117,12 @@ title: Index of Works
     <a href="{{ '/' | relative_url }}" class="back-link">← Syntopticon</a>
   </div>
 
-  {% comment %} Collect all works from works folder in site.data {% endcomment %}
   {% assign all_works = "" | split: "" %}
   
-  {% comment %} Access the works folder directly {% endcomment %}
   {% for work_entry in site.data.works %}
     {% assign work_key = work_entry[0] %}
     {% assign work = work_entry[1] %}
     
-    {% comment %} Get author info {% endcomment %}
     {% assign author_info = nil %}
     {% for author in site.data.authors.authors %}
       {% if author.id == work.author %}
@@ -125,7 +130,6 @@ title: Index of Works
       {% endif %}
     {% endfor %}
     
-    {% comment %} Find work page URL {% endcomment %}
     {% assign work_url = "" %}
     {% for work_page in site.works %}
       {% if work_page.work_id == work.id %}
@@ -133,14 +137,12 @@ title: Index of Works
       {% endif %}
     {% endfor %}
     
-    {% comment %} Create work entry - only if we have author info {% endcomment %}
     {% if author_info %}
       {% capture work_entry_str %}{{ work.year }}|{{ work.title }}|{{ author_info.name.en }}|{{ work_url }}{% endcapture %}
       {% assign all_works = all_works | push: work_entry_str %}
     {% endif %}
   {% endfor %}
   
-  {% comment %} Sort by year {% endcomment %}
   {% assign sorted_works = all_works | sort %}
   
   <ul class="works-list">
