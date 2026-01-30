@@ -123,57 +123,54 @@ jobs:
         run: pip install -r tools/requirements.txt
 
       - name: Run parser
+        env:
+          INPUT_URL: ${{ inputs.url }}
+          INPUT_WORK_ID: ${{ inputs.work_id }}
+          INPUT_TITLE: ${{ inputs.title }}
+          INPUT_SHORT_TITLE: ${{ inputs.short_title }}
+          INPUT_YEAR: ${{ inputs.year }}
+          INPUT_ORIGINAL_LANG: ${{ inputs.original_lang }}
+          INPUT_AUTHOR_ID: ${{ inputs.author_id }}
+          INPUT_AUTHOR_NAME: ${{ inputs.author_name }}
+          INPUT_AUTHOR_SHORT_NAME: ${{ inputs.author_short_name }}
+          INPUT_AUTHOR_TRADITION: ${{ inputs.author_tradition }}
+          INPUT_SITE_NAME: ${{ inputs.site_name }}
+          INPUT_EDITION_ID: ${{ inputs.edition_id }}
+          INPUT_EDITION_LANG: ${{ inputs.edition_lang }}
+          INPUT_TRANSLATOR: ${{ inputs.translator }}
+          INPUT_EDITION_YEAR: ${{ inputs.edition_year }}
+          INPUT_LEVELS: ${{ inputs.levels }}
+          INPUT_MODE: ${{ inputs.mode }}
+          INPUT_FETCH_CONTENT: ${{ inputs.fetch_content }}
         run: |
-          CMD="python3 tools/parse_theological_text.py"
-          CMD="$CMD '${{ inputs.url }}'"
-          CMD="$CMD --work-id '${{ inputs.work_id }}'"
-          CMD="$CMD --title '${{ inputs.title }}'"
-          CMD="$CMD --author-id '${{ inputs.author_id }}'"
-          CMD="$CMD --mode '${{ inputs.mode }}'"
+          ARGS=()
+          ARGS+=("$INPUT_URL")
+          ARGS+=(--work-id "$INPUT_WORK_ID")
+          ARGS+=(--title "$INPUT_TITLE")
+          ARGS+=(--author-id "$INPUT_AUTHOR_ID")
+          ARGS+=(--mode "$INPUT_MODE")
 
-          if [ -n "${{ inputs.short_title }}" ]; then
-            CMD="$CMD --short-title '${{ inputs.short_title }}'"
-          fi
-          if [ -n "${{ inputs.year }}" ]; then
-            CMD="$CMD --year '${{ inputs.year }}'"
-          fi
-          if [ -n "${{ inputs.original_lang }}" ]; then
-            CMD="$CMD --original-lang '${{ inputs.original_lang }}'"
-          fi
-          if [ -n "${{ inputs.author_name }}" ]; then
-            CMD="$CMD --author-name '${{ inputs.author_name }}'"
-          fi
-          if [ -n "${{ inputs.author_short_name }}" ]; then
-            CMD="$CMD --author-short-name '${{ inputs.author_short_name }}'"
-          fi
-          if [ -n "${{ inputs.author_tradition }}" ]; then
-            CMD="$CMD --author-tradition '${{ inputs.author_tradition }}'"
-          fi
-          if [ -n "${{ inputs.site_name }}" ]; then
-            CMD="$CMD --site-name '${{ inputs.site_name }}'"
-          fi
-          if [ -n "${{ inputs.edition_id }}" ]; then
-            CMD="$CMD --edition-id '${{ inputs.edition_id }}'"
-          fi
-          if [ -n "${{ inputs.edition_lang }}" ]; then
-            CMD="$CMD --edition-lang '${{ inputs.edition_lang }}'"
-          fi
-          if [ -n "${{ inputs.translator }}" ]; then
-            CMD="$CMD --translator '${{ inputs.translator }}'"
-          fi
-          if [ -n "${{ inputs.edition_year }}" ]; then
-            CMD="$CMD --edition-year '${{ inputs.edition_year }}'"
-          fi
-          if [ -n "${{ inputs.levels }}" ]; then
-            CMD="$CMD --levels '${{ inputs.levels }}'"
-          fi
-          if [ "${{ inputs.fetch_content }}" = "false" ]; then
-            CMD="$CMD --no-fetch-content"
-          fi
+          [ -n "$INPUT_SHORT_TITLE" ]       && ARGS+=(--short-title "$INPUT_SHORT_TITLE")
+          [ -n "$INPUT_YEAR" ]              && ARGS+=(--year "$INPUT_YEAR")
+          [ -n "$INPUT_ORIGINAL_LANG" ]     && ARGS+=(--original-lang "$INPUT_ORIGINAL_LANG")
+          [ -n "$INPUT_AUTHOR_NAME" ]       && ARGS+=(--author-name "$INPUT_AUTHOR_NAME")
+          [ -n "$INPUT_AUTHOR_SHORT_NAME" ] && ARGS+=(--author-short-name "$INPUT_AUTHOR_SHORT_NAME")
+          [ -n "$INPUT_AUTHOR_TRADITION" ]  && ARGS+=(--author-tradition "$INPUT_AUTHOR_TRADITION")
+          [ -n "$INPUT_SITE_NAME" ]         && ARGS+=(--site-name "$INPUT_SITE_NAME")
+          [ -n "$INPUT_EDITION_ID" ]        && ARGS+=(--edition-id "$INPUT_EDITION_ID")
+          [ -n "$INPUT_EDITION_LANG" ]      && ARGS+=(--edition-lang "$INPUT_EDITION_LANG")
+          [ -n "$INPUT_TRANSLATOR" ]        && ARGS+=(--translator "$INPUT_TRANSLATOR")
+          [ -n "$INPUT_EDITION_YEAR" ]      && ARGS+=(--edition-year "$INPUT_EDITION_YEAR")
+          [ -n "$INPUT_LEVELS" ]            && ARGS+=(--levels "$INPUT_LEVELS")
+          [ "$INPUT_FETCH_CONTENT" = "false" ] && ARGS+=(--no-fetch-content)
 
-          eval $CMD
+          python3 tools/parse_theological_text.py "${ARGS[@]}"
 
       - name: Commit and push generated files
+        env:
+          WORK_TITLE: ${{ inputs.title }}
+          WORK_ID: ${{ inputs.work_id }}
+          SOURCE_URL: ${{ inputs.url }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -181,9 +178,12 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Add ${{ inputs.title }} (${{ inputs.work_id }})
+            git commit -m "$(cat <<EOF
+          Add ${WORK_TITLE} (${WORK_ID})
 
-Generated by the Theological Text Parser from:
-${{ inputs.url }}"
+          Generated by the Theological Text Parser from:
+          ${SOURCE_URL}
+          EOF
+          )"
             git push
           fi
