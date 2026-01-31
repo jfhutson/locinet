@@ -2,5 +2,10 @@ work: bondage-1525
 sites:
   CCEL:
     edition: ''
-    url_base: https://www.ccel.org
-    nodes: {}
+    url_base: https://ccel.org
+    nodes:
+      bondage1525_1: https://ccel.org/ccel/luther/bondage/bondage.i.html
+      bondage1525_2: https://ccel.org/ccel/l/luther/bondage/cache/bondage.epub
+      bondage1525_3: https://ccel.org/ccel/l/luther/bondage/cache/bondage.doc
+      bondage1525_4: https://ccel.org/ccel/l/luther/bondage/cache/bondage.txt
+      bondage1525_5: https://ccel.org/ccel/l/luther/bondage.xml

@@ -1,17 +1,8 @@
 work: bondage-1525
 book_titles:
   en:
-    bondage1525_1: De Servo Arbitrio “On the Enslaved Will” or The Bondage of Will
-section_titles:
-  en:
-    bondage1525_1_1: by Martin Luther
-    bondage1525_1_2: Read Online
-    bondage1525_1_3: Download
-    bondage1525_1_4: Listen
-    bondage1525_1_5: Summary
-    bondage1525_1_6: Formats
-    bondage1525_1_7: About
-    bondage1525_1_8: Summary
-    bondage1525_1_9: Popularity
-    bondage1525_1_10: Available formats
-    bondage1525_1_11: About Martin Luther
+    bondage1525_1: HTML
+    bondage1525_2: Read on mobile
+    bondage1525_3: Microsoft Word html w/markup
+    bondage1525_4: Unicode Text (utf-8)
+    bondage1525_5: Theological Markup Language (XML)

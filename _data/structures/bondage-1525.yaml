@@ -4,60 +4,19 @@ structure:
   - id: book
     label:
       en: Book
-  - id: section
-    label:
-      en: Section
-  - id: article
-    label:
-      en: Article
-  - id: sub-section
-    label:
-      en: Sub-section
   nodes:
   - id: bondage1525_1
     level: book
     ordinal: 1
-  - id: bondage1525_1_1
-    level: section
-    parent: bondage1525_1
-    ordinal: 1
-  - id: bondage1525_1_2
-    level: section
-    parent: bondage1525_1
+  - id: bondage1525_2
+    level: book
     ordinal: 2
-  - id: bondage1525_1_3
-    level: section
-    parent: bondage1525_1
+  - id: bondage1525_3
+    level: book
     ordinal: 3
-  - id: bondage1525_1_4
-    level: section
-    parent: bondage1525_1
+  - id: bondage1525_4
+    level: book
     ordinal: 4
-  - id: bondage1525_1_5
-    level: section
-    parent: bondage1525_1
+  - id: bondage1525_5
+    level: book
     ordinal: 5
-  - id: bondage1525_1_6
-    level: section
-    parent: bondage1525_1
-    ordinal: 6
-  - id: bondage1525_1_7
-    level: section
-    parent: bondage1525_1
-    ordinal: 7
-  - id: bondage1525_1_8
-    level: section
-    parent: bondage1525_1
-    ordinal: 8
-  - id: bondage1525_1_9
-    level: section
-    parent: bondage1525_1
-    ordinal: 9
-  - id: bondage1525_1_10
-    level: section
-    parent: bondage1525_1
-    ordinal: 10
-  - id: bondage1525_1_11
-    level: section
-    parent: bondage1525_1
-    ordinal: 11
