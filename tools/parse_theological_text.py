@@ -407,70 +407,199 @@ def assign_topics(title, content, all_topics, keyword_index):
 # ---------------------------------------------------------------------------
 
 
+def _is_navigation_text(text):
+    """Check if link text looks like site navigation rather than a chapter title."""
+    nav_patterns = [
+        "home", "about", "contact", "search", "help", "login", "sign in",
+        "copyright", "next", "previous", "back", "forward", "menu",
+        "read online", "download", "listen", "formats", "summary",
+        "popularity", "available formats", "print", "share", "cite",
+        "subscribe", "newsletter", "donate", "support", "privacy",
+        "terms of use", "feedback", "report", "settings", "profile",
+        "log in", "log out", "sign up", "register", "cart", "shop",
+        "buy", "purchase", "order", "browse", "catalog", "library",
+        "all works", "all authors", "site map", "sitemap", "faq",
+        "mobile", "desktop", "pdf", "epub", "kindle", "mobi",
+    ]
+    text_lower = text.lower().strip()
+    # Exact match or starts with a nav pattern
+    for pat in nav_patterns:
+        if text_lower == pat or text_lower.startswith(pat + " "):
+            return True
+    # Very short generic text
+    if len(text_lower) <= 2:
+        return True
+    return False
+
+
+def _url_is_related(link_url, base_url):
+    """Check if a link URL looks like a sub-page of the current work.
+
+    For example, on https://ccel.org/ccel/luther/bondage/bondage,
+    a link to bondage.iii.html is related, but a link to /about is not.
+    """
+    base_parsed = urlparse(base_url)
+    link_parsed = urlparse(link_url)
+
+    # Must be same host (or relative)
+    if link_parsed.netloc and link_parsed.netloc != base_parsed.netloc:
+        return False
+
+    base_path = base_parsed.path.rstrip("/")
+    link_path = link_parsed.path.rstrip("/")
+
+    # Link path should share a common prefix with the base path
+    # e.g. base=/ccel/luther/bondage/bondage, link=/ccel/luther/bondage/bondage.iii.html
+    # Get the directory of the base path
+    base_dir = base_path.rsplit("/", 1)[0] if "/" in base_path else ""
+
+    if link_path.startswith(base_dir + "/"):
+        return True
+
+    # Also accept links where the base path is a prefix of the link
+    # e.g. base=bondage, link=bondage.iii.html
+    base_stem = base_path.rsplit("/", 1)[-1]
+    link_stem = link_path.rsplit("/", 1)[-1]
+    if base_stem and link_stem.startswith(base_stem):
+        return True
+
+    return False
+
+
 def detect_toc_links(soup, base_url):
     """Detect table-of-contents links from the page.
 
+    Uses multiple strategies and scores each list of links to find the
+    most likely table of contents, filtering out site navigation.
+
     Returns list of dicts: {title, url, level}
     """
-    toc_entries = []
 
-    # Strategy 1: Look for <ol>/<ul> with links that look like chapter links
-    for list_el in soup.find_all(["ol", "ul"]):
-        links_in_list = list_el.find_all("a", href=True)
-        if len(links_in_list) >= 3:
-            entries = []
-            for a in links_in_list:
-                href = a.get("href", "")
-                if not href or href.startswith("#") or href.startswith("javascript"):
-                    continue
-                text = a.get_text(strip=True)
-                if len(text) < 3:
-                    continue
-                full_url = urljoin(base_url, href)
-                # Determine nesting level
-                depth = 0
-                parent = a.parent
-                while parent and parent != list_el:
-                    if parent.name in ["ol", "ul"]:
-                        depth += 1
-                    parent = parent.parent
-                entries.append({
-                    "title": text,
-                    "url": full_url,
-                    "level": depth,
-                })
-            if len(entries) >= 3:
-                toc_entries = entries
-                break  # use the first substantial list
-
-    # Strategy 2: If no list found, look for sequences of links
-    if not toc_entries:
-        body = soup.find("body") or soup
-        all_links = body.find_all("a", href=True)
-        candidate = []
-        for a in all_links:
+    def extract_entries_from_list(list_el):
+        """Extract link entries from a list element."""
+        entries = []
+        for a in list_el.find_all("a", href=True):
             href = a.get("href", "")
+            if not href or href.startswith("#") or href.startswith("javascript"):
+                continue
             text = a.get_text(strip=True)
-            if (
-                href
-                and not href.startswith("#")
-                and not href.startswith("javascript")
-                and len(text) > 5
-                and not any(skip in text.lower() for skip in [
-                    "home", "about", "contact", "search", "help", "login",
-                    "copyright", "next", "previous", "back",
-                ])
-            ):
-                full_url = urljoin(base_url, href)
+            if len(text) < 3 or _is_navigation_text(text):
+                continue
+            full_url = urljoin(base_url, href)
+            # Determine nesting level
+            depth = 0
+            parent = a.parent
+            while parent and parent != list_el:
+                if parent.name in ["ol", "ul"]:
+                    depth += 1
+                parent = parent.parent
+            entries.append({
+                "title": text,
+                "url": full_url,
+                "level": depth,
+            })
+        return entries
+
+    def score_toc_candidate(entries):
+        """Score a list of entries on how likely it is to be a real TOC.
+
+        Higher score = more likely to be the actual table of contents.
+        """
+        if len(entries) < 3:
+            return -1
+
+        score = 0
+        related_count = 0
+        for entry in entries:
+            if _url_is_related(entry["url"], base_url):
+                related_count += 1
+
+        # Proportion of URLs related to this work (most important signal)
+        if len(entries) > 0:
+            related_ratio = related_count / len(entries)
+            score += related_ratio * 100
+
+        # Bonus for having multiple hierarchy levels (suggests real TOC)
+        levels = set(e["level"] for e in entries)
+        if len(levels) > 1:
+            score += 20
+
+        # Bonus for reasonable count (not too few, not hundreds)
+        if 3 <= len(entries) <= 200:
+            score += 10
+
+        # Penalty for very short average title length (likely nav)
+        avg_title_len = sum(len(e["title"]) for e in entries) / len(entries)
+        if avg_title_len < 10:
+            score -= 20
+        elif avg_title_len > 15:
+            score += 10
+
+        return score
+
+    # Strategy 1: Score all <ol>/<ul> lists and pick the best one
+    best_entries = []
+    best_score = -1
+
+    for list_el in soup.find_all(["ol", "ul"]):
+        entries = extract_entries_from_list(list_el)
+        if len(entries) < 3:
+            continue
+        score = score_toc_candidate(entries)
+        if score > best_score:
+            best_score = score
+            best_entries = entries
+
+    if best_entries and best_score >= 30:
+        return best_entries
+
+    # Strategy 2: Collect all links on the page that point to related URLs
+    body = soup.find("body") or soup
+    all_links = body.find_all("a", href=True)
+    candidate = []
+    for a in all_links:
+        href = a.get("href", "")
+        text = a.get_text(strip=True)
+        if (
+            href
+            and not href.startswith("#")
+            and not href.startswith("javascript")
+            and len(text) > 3
+            and not _is_navigation_text(text)
+        ):
+            full_url = urljoin(base_url, href)
+            if _url_is_related(full_url, base_url):
                 candidate.append({
                     "title": text,
                     "url": full_url,
                     "level": 0,
                 })
-        if len(candidate) >= 3:
-            toc_entries = candidate
 
-    return toc_entries
+    if len(candidate) >= 3:
+        return candidate
+
+    # Strategy 3: Fall back to any links that aren't navigation
+    fallback = []
+    for a in all_links:
+        href = a.get("href", "")
+        text = a.get_text(strip=True)
+        if (
+            href
+            and not href.startswith("#")
+            and not href.startswith("javascript")
+            and len(text) > 5
+            and not _is_navigation_text(text)
+        ):
+            full_url = urljoin(base_url, href)
+            fallback.append({
+                "title": text,
+                "url": full_url,
+                "level": 0,
+            })
+    if len(fallback) >= 3:
+        return fallback
+
+    return []
 
 
 def detect_headings_structure(soup):
