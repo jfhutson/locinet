@@ -1,17 +1,14 @@
 name: Broken Links Check
 
-on:
-  push:
-  pull_request:
-  schedule:
-    - cron: "0 0 * * 0"  # optional: weekly run
+on: [push]
 
 jobs:
   check-links:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Broken-Links-Crawler
         uses: ScholliYT/Broken-Links-Crawler-Action@v3.3.2
+        with:
+          website_url: "https://locinet.github.io/"
